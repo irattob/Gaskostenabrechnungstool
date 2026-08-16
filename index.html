@@ -8,6 +8,10 @@
 
 <style>
 
+/* =========================================================
+   GRUNDLAGEN
+   ========================================================= */
+
 * {
     box-sizing: border-box;
 }
@@ -22,11 +26,22 @@
     --table-head: #f9fafb;
     --total-bg: #eff6ff;
     --person-bg: #f9fafb;
+
     --primary: #2563eb;
     --primary-hover: #1d4ed8;
+
     --secondary: #e5e7eb;
     --secondary-hover: #d1d5db;
+
     --danger: #dc2626;
+    --danger-hover: #b91c1c;
+
+    --success: #059669;
+    --success-hover: #047857;
+
+    --orange: #ea580c;
+    --orange-hover: #c2410c;
+
     --success-bg: #ecfdf5;
     --success-text: #047857;
 }
@@ -41,26 +56,48 @@ body.dark-mode {
     --table-head: #374151;
     --total-bg: #1e3a5f;
     --person-bg: #374151;
+
     --primary: #3b82f6;
     --primary-hover: #60a5fa;
+
     --secondary: #4b5563;
     --secondary-hover: #6b7280;
+
     --danger: #ef4444;
+    --danger-hover: #f87171;
+
+    --success: #059669;
+    --success-hover: #10b981;
+
+    --orange: #ea580c;
+    --orange-hover: #f97316;
+
     --success-bg: #064e3b;
     --success-text: #6ee7b7;
 }
 
 body {
     margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
     background: var(--bg);
     color: var(--text);
-    transition: background-color .25s, color .25s;
+
+    transition:
+        background-color .25s,
+        color .25s;
 }
 
 .container {
     max-width: 1100px;
-    margin: 30px auto;
+
+    margin:
+        30px auto;
+
     padding: 20px;
 }
 
@@ -74,6 +111,7 @@ h2 {
 
 .subtitle {
     color: var(--muted);
+
     margin-bottom: 25px;
 }
 
@@ -84,14 +122,20 @@ h2 {
 
 .card {
     background: var(--card);
+
     border-radius: 12px;
+
     padding: 22px;
+
     margin-bottom: 20px;
-    box-shadow: 0 2px 10px rgba(0,0,0,.06);
+
+    box-shadow:
+        0 2px 10px rgba(0,0,0,.06);
 }
 
 body.dark-mode .card {
-    box-shadow: 0 2px 12px rgba(0,0,0,.25);
+    box-shadow:
+        0 2px 12px rgba(0,0,0,.25);
 }
 
 
@@ -101,13 +145,19 @@ body.dark-mode .card {
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
     gap: 15px;
 }
 
 .grid-2 {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
     gap: 15px;
 }
 
@@ -118,33 +168,52 @@ body.dark-mode .card {
 
 label {
     display: block;
+
     font-weight: bold;
+
     margin-bottom: 6px;
 }
 
 input {
     width: 100%;
-    padding: 10px 12px;
 
-    border: 1px solid var(--border);
+    padding:
+        10px 12px;
+
+    border:
+        1px solid var(--border);
+
     border-radius: 7px;
 
     font-size: 16px;
 
-    background: var(--input-bg);
-    color: var(--text);
+    background:
+        var(--input-bg);
+
+    color:
+        var(--text);
 }
 
 input:focus {
     outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 2px rgba(37,99,235,.15);
+
+    border-color:
+        var(--primary);
+
+    box-shadow:
+        0 0 0 2px
+        rgba(37,99,235,.15);
 }
 
 .hint {
-    color: var(--muted);
-    font-size: 14px;
-    margin-top: 5px;
+    color:
+        var(--muted);
+
+    font-size:
+        14px;
+
+    margin-top:
+        5px;
 }
 
 
@@ -154,94 +223,145 @@ input:focus {
 
 button {
     border: none;
+
     border-radius: 7px;
 
-    padding: 11px 18px;
+    padding:
+        11px 18px;
 
-    font-size: 15px;
+    font-size:
+        15px;
+
     cursor: pointer;
+
     font-weight: bold;
 
-    transition: background-color .2s, transform .1s;
+    transition:
+        background-color .2s,
+        transform .1s;
 }
 
 button:active {
-    transform: scale(.98);
+    transform:
+        scale(.98);
 }
 
 .btn-primary {
-    background: var(--primary);
-    color: white;
+    background:
+        var(--primary);
+
+    color:
+        white;
 }
 
 .btn-primary:hover {
-    background: var(--primary-hover);
+    background:
+        var(--primary-hover);
 }
 
 .btn-secondary {
-    background: var(--secondary);
-    color: var(--text);
+    background:
+        var(--secondary);
+
+    color:
+        var(--text);
 }
 
 .btn-secondary:hover {
-    background: var(--secondary-hover);
+    background:
+        var(--secondary-hover);
 }
 
 .btn-danger {
-    background: var(--danger);
-    color: white;
+    background:
+        var(--danger);
+
+    color:
+        white;
 }
 
 .btn-danger:hover {
-    opacity: .9;
+    background:
+        var(--danger-hover);
 }
 
 .btn-green {
-    background: #059669;
-    color: white;
+    background:
+        var(--success);
+
+    color:
+        white;
 }
 
 .btn-green:hover {
-    background: #047857;
+    background:
+        var(--success-hover);
 }
 
 .btn-orange {
-    background: #ea580c;
-    color: white;
+    background:
+        var(--orange);
+
+    color:
+        white;
 }
 
 .btn-orange:hover {
-    background: #c2410c;
+    background:
+        var(--orange-hover);
 }
 
 .button-row {
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
-    flex-wrap: wrap;
+    display:
+        flex;
+
+    gap:
+        10px;
+
+    margin-top:
+        20px;
+
+    flex-wrap:
+        wrap;
 }
 
 
 /* =========================================================
-   THEME
+   DARK MODE
    ========================================================= */
 
 .theme-toggle {
-    position: fixed;
-    top: 15px;
-    right: 15px;
-    z-index: 1000;
+    position:
+        fixed;
 
-    background: #1f2937;
-    color: white;
+    top:
+        15px;
 
-    border-radius: 9px;
-    padding: 10px 15px;
+    right:
+        15px;
+
+    z-index:
+        1000;
+
+    background:
+        #1f2937;
+
+    color:
+        white;
+
+    border-radius:
+        9px;
+
+    padding:
+        10px 15px;
 }
 
 body.dark-mode .theme-toggle {
-    background: #f9fafb;
-    color: #111827;
+    background:
+        #f9fafb;
+
+    color:
+        #111827;
 }
 
 
@@ -250,36 +370,59 @@ body.dark-mode .theme-toggle {
    ========================================================= */
 
 .period-navigation {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    display:
+        flex;
 
-    gap: 10px;
-    flex-wrap: wrap;
+    align-items:
+        center;
 
-    margin-bottom: 20px;
+    justify-content:
+        space-between;
+
+    gap:
+        10px;
+
+    flex-wrap:
+        wrap;
+
+    margin-bottom:
+        20px;
 }
 
 .period-info {
-    flex: 1;
-    min-width: 220px;
+    flex:
+        1;
 
-    text-align: center;
+    min-width:
+        220px;
 
-    background: var(--table-head);
+    text-align:
+        center;
 
-    border-radius: 10px;
-    padding: 12px;
+    background:
+        var(--table-head);
+
+    border-radius:
+        10px;
+
+    padding:
+        12px;
 }
 
 .period-title {
-    font-size: 18px;
-    font-weight: bold;
+    font-size:
+        18px;
+
+    font-weight:
+        bold;
 }
 
 .period-date {
-    color: var(--muted);
-    margin-top: 4px;
+    color:
+        var(--muted);
+
+    margin-top:
+        4px;
 }
 
 
@@ -288,30 +431,45 @@ body.dark-mode .theme-toggle {
    ========================================================= */
 
 table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 15px;
+    width:
+        100%;
+
+    border-collapse:
+        collapse;
+
+    margin-top:
+        15px;
 }
 
 th,
 td {
-    padding: 11px 10px;
-    border-bottom: 1px solid var(--border);
-    text-align: right;
+    padding:
+        11px 10px;
+
+    border-bottom:
+        1px solid var(--border);
+
+    text-align:
+        right;
 }
 
 th:first-child,
 td:first-child {
-    text-align: left;
+    text-align:
+        left;
 }
 
 th {
-    background: var(--table-head);
+    background:
+        var(--table-head);
 }
 
 .total-row {
-    font-weight: bold;
-    background: var(--total-bg);
+    font-weight:
+        bold;
+
+    background:
+        var(--total-bg);
 }
 
 
@@ -320,112 +478,176 @@ th {
    ========================================================= */
 
 .person-card {
-    text-align: center;
+    text-align:
+        center;
 
-    padding: 20px;
+    padding:
+        20px;
 
-    background: var(--person-bg);
+    background:
+        var(--person-bg);
 
-    border-radius: 10px;
+    border-radius:
+        10px;
 }
 
 .person-name {
-    font-weight: bold;
-    font-size: 18px;
-    margin-bottom: 8px;
+    font-weight:
+        bold;
+
+    font-size:
+        18px;
+
+    margin-bottom:
+        8px;
 }
 
 .big-number {
-    font-size: 25px;
-    font-weight: bold;
-    color: var(--primary);
+    font-size:
+        25px;
+
+    font-weight:
+        bold;
+
+    color:
+        var(--primary);
 }
 
 .cost-summary {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
-    margin-top: 15px;
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap:
+        15px;
+
+    margin-top:
+        15px;
 }
 
 .percentage {
-    color: #059669;
-    font-weight: bold;
+    color:
+        var(--success);
+
+    font-weight:
+        bold;
 }
 
 .calculation-info {
-    margin-top: 15px;
-    padding: 12px;
+    margin-top:
+        15px;
 
-    background: var(--table-head);
-    border-radius: 8px;
+    padding:
+        12px;
 
-    color: var(--muted);
-    font-size: 14px;
+    background:
+        var(--table-head);
+
+    border-radius:
+        8px;
+
+    color:
+        var(--muted);
+
+    font-size:
+        14px;
 }
 
 .status {
-    padding: 10px;
-    background: var(--success-bg);
-    color: var(--success-text);
+    padding:
+        10px;
 
-    border-radius: 7px;
-    margin-top: 15px;
+    background:
+        var(--success-bg);
 
-    display: none;
+    color:
+        var(--success-text);
+
+    border-radius:
+        7px;
+
+    margin-top:
+        15px;
+
+    display:
+        none;
 }
 
 
 /* =========================================================
-   VERLAUF
+   HISTORIE
    ========================================================= */
 
 .history-list {
-    margin-top: 15px;
+    margin-top:
+        15px;
 }
 
 .history-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display:
+        flex;
 
-    padding: 12px;
+    justify-content:
+        space-between;
 
-    border: 1px solid var(--border);
-    border-radius: 8px;
+    align-items:
+        center;
 
-    margin-bottom: 8px;
+    padding:
+        12px;
 
-    cursor: pointer;
+    border:
+        1px solid var(--border);
 
-    background: var(--card);
+    border-radius:
+        8px;
+
+    margin-bottom:
+        8px;
+
+    cursor:
+        pointer;
+
+    background:
+        var(--card);
 }
 
 .history-item:hover {
-    background: var(--table-head);
+    background:
+        var(--table-head);
 }
 
 .history-item.active {
-    border-color: var(--primary);
-    background: var(--total-bg);
+    border-color:
+        var(--primary);
+
+    background:
+        var(--total-bg);
 }
 
 .history-item-title {
-    font-weight: bold;
+    font-weight:
+        bold;
 }
 
 .history-item-date {
-    color: var(--muted);
-    font-size: 13px;
+    color:
+        var(--muted);
+
+    font-size:
+        13px;
 }
 
 
 /* =========================================================
-   PRINT SUMMARY
+   PRINT
    ========================================================= */
 
 #printSummary {
-    display: none;
+    display:
+        none;
 }
 
 
@@ -438,205 +660,327 @@ th {
     .grid,
     .grid-2,
     .cost-summary {
-        grid-template-columns: 1fr;
+        grid-template-columns:
+            1fr;
     }
 
     .container {
-        padding: 10px;
-        margin-top: 60px;
+        padding:
+            10px;
+
+        margin-top:
+            60px;
     }
 
     .card {
-        padding: 15px;
+        padding:
+            15px;
     }
 
     table {
-        font-size: 14px;
+        font-size:
+            14px;
     }
 
     th,
     td {
-        padding: 8px 5px;
+        padding:
+            8px 5px;
     }
+
 }
 
 
 /* =========================================================
-   PRINT
+   DRUCK
    ========================================================= */
 
 @media print {
 
     @page {
-        size: A4;
-        margin: 15mm;
+        size:
+            A4;
+
+        margin:
+            15mm;
     }
 
     body {
-        background: white !important;
-        color: #111827 !important;
+        background:
+            white !important;
+
+        color:
+            #111827 !important;
     }
 
     .container,
     .theme-toggle {
-        display: none !important;
+        display:
+            none !important;
     }
 
     #printSummary {
-        display: block !important;
-        width: 100%;
-        color: #111827 !important;
-        background: white !important;
+        display:
+            block !important;
+
+        width:
+            100%;
+
+        color:
+            #111827 !important;
+
+        background:
+            white !important;
     }
 
     .print-header {
-        border-bottom: 3px solid #2563eb;
-        padding-bottom: 12px;
-        margin-bottom: 20px;
+        border-bottom:
+            3px solid #2563eb;
+
+        padding-bottom:
+            12px;
+
+        margin-bottom:
+            20px;
     }
 
     .print-title {
-        font-size: 26px;
-        font-weight: bold;
-        margin-bottom: 5px;
+        font-size:
+            26px;
+
+        font-weight:
+            bold;
+
+        margin-bottom:
+            5px;
     }
 
     .print-subtitle {
-        color: #6b7280;
-        font-size: 13px;
+        color:
+            #6b7280;
+
+        font-size:
+            13px;
     }
 
     .print-info {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 12px;
-        margin-bottom: 20px;
+        display:
+            grid;
+
+        grid-template-columns:
+            repeat(3, 1fr);
+
+        gap:
+            12px;
+
+        margin-bottom:
+            20px;
     }
 
     .print-info-box {
-        border: 1px solid #d1d5db;
-        border-radius: 8px;
-        padding: 10px;
-        background: #f9fafb;
+        border:
+            1px solid #d1d5db;
+
+        border-radius:
+            8px;
+
+        padding:
+            10px;
+
+        background:
+            #f9fafb;
     }
 
     .print-info-label {
-        font-size: 11px;
-        color: #6b7280;
-        margin-bottom: 4px;
+        font-size:
+            11px;
+
+        color:
+            #6b7280;
+
+        margin-bottom:
+            4px;
     }
 
     .print-info-value {
-        font-size: 15px;
-        font-weight: bold;
+        font-size:
+            15px;
+
+        font-weight:
+            bold;
     }
 
     .print-section {
-        margin-top: 20px;
-        page-break-inside: avoid;
+        margin-top:
+            20px;
+
+        page-break-inside:
+            avoid;
     }
 
     .print-section-title {
-        font-size: 17px;
-        font-weight: bold;
+        font-size:
+            17px;
 
-        padding-bottom: 6px;
+        font-weight:
+            bold;
 
-        border-bottom: 1px solid #d1d5db;
+        padding-bottom:
+            6px;
 
-        margin-bottom: 8px;
+        border-bottom:
+            1px solid #d1d5db;
+
+        margin-bottom:
+            8px;
     }
 
     .print-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 8px;
+        width:
+            100%;
+
+        border-collapse:
+            collapse;
+
+        margin-top:
+            8px;
     }
 
     .print-table th {
-        background: #f3f4f6;
+        background:
+            #f3f4f6;
     }
 
     .print-table th,
     .print-table td {
-        border: 1px solid #d1d5db;
-        padding: 7px 8px;
-        text-align: right;
-        color: #111827 !important;
+        border:
+            1px solid #d1d5db;
+
+        padding:
+            7px 8px;
+
+        text-align:
+            right;
+
+        color:
+            #111827 !important;
     }
 
     .print-table th:first-child,
     .print-table td:first-child {
-        text-align: left;
+        text-align:
+            left;
     }
 
     .print-total {
-        background: #eff6ff !important;
-        font-weight: bold;
+        background:
+            #eff6ff !important;
+
+        font-weight:
+            bold;
     }
 
     .print-final {
-        margin-top: 25px;
+        margin-top:
+            25px;
 
-        border: 2px solid #2563eb;
-        border-radius: 10px;
+        border:
+            2px solid #2563eb;
 
-        padding: 15px;
+        border-radius:
+            10px;
 
-        page-break-inside: avoid;
+        padding:
+            15px;
+
+        page-break-inside:
+            avoid;
     }
 
     .print-final-title {
-        font-size: 19px;
-        font-weight: bold;
+        font-size:
+            19px;
 
-        margin-bottom: 10px;
+        font-weight:
+            bold;
 
-        color: #1d4ed8;
+        margin-bottom:
+            10px;
+
+        color:
+            #1d4ed8;
     }
 
     .print-person-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 10px;
+        display:
+            grid;
+
+        grid-template-columns:
+            repeat(3, 1fr);
+
+        gap:
+            10px;
     }
 
     .print-person {
-        text-align: center;
+        text-align:
+            center;
 
-        padding: 12px;
+        padding:
+            12px;
 
-        background: #f9fafb;
+        background:
+            #f9fafb;
 
-        border-radius: 7px;
+        border-radius:
+            7px;
 
-        border: 1px solid #e5e7eb;
+        border:
+            1px solid #e5e7eb;
     }
 
     .print-person-name {
-        font-weight: bold;
-        margin-bottom: 5px;
+        font-weight:
+            bold;
+
+        margin-bottom:
+            5px;
     }
 
     .print-person-cost {
-        font-size: 20px;
-        font-weight: bold;
-        color: #2563eb;
+        font-size:
+            20px;
+
+        font-weight:
+            bold;
+
+        color:
+            #2563eb;
     }
 
     .print-footer {
-        margin-top: 25px;
+        margin-top:
+            25px;
 
-        padding-top: 10px;
+        padding-top:
+            10px;
 
-        border-top: 1px solid #d1d5db;
+        border-top:
+            1px solid #d1d5db;
 
-        color: #6b7280;
-        font-size: 11px;
+        color:
+            #6b7280;
 
-        display: flex;
-        justify-content: space-between;
+        font-size:
+            11px;
+
+        display:
+            flex;
+
+        justify-content:
+            space-between;
     }
+
 }
 
 </style>
@@ -736,7 +1080,7 @@ th {
 
 
         <button
-            class="btn-orange"
+            class="btn-danger"
             onclick="deleteCurrentPeriod()"
         >
             🗑 Abrechnung löschen
@@ -752,7 +1096,24 @@ th {
 
 
         <button
-            class="btn-green"
+            class="btn-primary"
+            onclick="document.getElementById('jsonFileInput').click()"
+        >
+            📂 JSON laden
+        </button>
+
+
+        <input
+            type="file"
+            id="jsonFileInput"
+            accept=".json,application/json"
+            style="display:none"
+            onchange="loadJSON(event)"
+        >
+
+
+        <button
+            class="btn-orange"
             onclick="printSummary()"
         >
             🖨️ Abrechnung drucken
@@ -876,7 +1237,7 @@ th {
             >
 
             <div class="hint">
-                Dieses Datum wird zur chronologischen Sortierung verwendet.
+                Das Datum wird zur chronologischen Sortierung verwendet.
             </div>
 
         </div>
@@ -931,9 +1292,6 @@ th {
 
     <div class="grid">
 
-
-        <!-- PERSON 1 -->
-
         <div>
 
             <label id="heatingName0">
@@ -967,8 +1325,6 @@ th {
         </div>
 
 
-        <!-- PERSON 2 -->
-
         <div>
 
             <label id="heatingName1">
@@ -1001,8 +1357,6 @@ th {
 
         </div>
 
-
-        <!-- PERSON 3 -->
 
         <div>
 
@@ -1048,9 +1402,7 @@ th {
                 <th></th>
 
                 <th id="hTableName0">Person 1</th>
-
                 <th id="hTableName1">Person 2</th>
-
                 <th id="hTableName2">Person 3</th>
 
             </tr>
@@ -1135,9 +1487,6 @@ th {
 
     <div class="grid">
 
-
-        <!-- PERSON 1 -->
-
         <div>
 
             <label id="waterName0">
@@ -1171,8 +1520,6 @@ th {
         </div>
 
 
-        <!-- PERSON 2 -->
-
         <div>
 
             <label id="waterName1">
@@ -1205,8 +1552,6 @@ th {
 
         </div>
 
-
-        <!-- PERSON 3 -->
 
         <div>
 
@@ -1339,11 +1684,17 @@ th {
 
         <div class="person-card">
 
-            <div class="person-name" id="totalName0">
+            <div
+                class="person-name"
+                id="totalName0"
+            >
                 Person 1
             </div>
 
-            <div class="big-number" id="totalCost0">
+            <div
+                class="big-number"
+                id="totalCost0"
+            >
                 0,00 €
             </div>
 
@@ -1352,11 +1703,17 @@ th {
 
         <div class="person-card">
 
-            <div class="person-name" id="totalName1">
+            <div
+                class="person-name"
+                id="totalName1"
+            >
                 Person 2
             </div>
 
-            <div class="big-number" id="totalCost1">
+            <div
+                class="big-number"
+                id="totalCost1"
+            >
                 0,00 €
             </div>
 
@@ -1365,11 +1722,17 @@ th {
 
         <div class="person-card">
 
-            <div class="person-name" id="totalName2">
+            <div
+                class="person-name"
+                id="totalName2"
+            >
                 Person 3
             </div>
 
-            <div class="big-number" id="totalCost2">
+            <div
+                class="big-number"
+                id="totalCost2"
+            >
                 0,00 €
             </div>
 
@@ -1453,7 +1816,7 @@ th {
 
 
 <!-- =========================================================
-     VERLAUF
+     HISTORIE
      ========================================================= -->
 
 <div class="card">
@@ -1463,7 +1826,7 @@ th {
     </h2>
 
     <div class="hint">
-        Alle angelegten Abrechnungszeitpunkte werden hier chronologisch
+        Alle angelegten Abrechnungen werden chronologisch
         angezeigt. Klicke auf einen Eintrag, um ihn zu öffnen.
     </div>
 
@@ -1551,8 +1914,6 @@ th {
     </div>
 
 
-    <!-- PERSONEN -->
-
     <div class="print-section">
 
         <div class="print-section-title">
@@ -1583,8 +1944,6 @@ th {
 
     </div>
 
-
-    <!-- HEIZUNG -->
 
     <div class="print-section">
 
@@ -1674,8 +2033,6 @@ th {
     </div>
 
 
-    <!-- WARMWASSER -->
-
     <div class="print-section">
 
         <div class="print-section-title">
@@ -1763,8 +2120,6 @@ th {
 
     </div>
 
-
-    <!-- GESAMT -->
 
     <div class="print-final">
 
@@ -1854,30 +2209,63 @@ th {
 
                 <tr>
 
-                    <td id="printSummaryName0">Person 1</td>
-                    <td id="printSummaryHeating0">0,00 €</td>
-                    <td id="printSummaryWater0">0,00 €</td>
-                    <td id="printSummaryTotal0">0,00 €</td>
+                    <td id="printSummaryName0">
+                        Person 1
+                    </td>
+
+                    <td id="printSummaryHeating0">
+                        0,00 €
+                    </td>
+
+                    <td id="printSummaryWater0">
+                        0,00 €
+                    </td>
+
+                    <td id="printSummaryTotal0">
+                        0,00 €
+                    </td>
 
                 </tr>
 
 
                 <tr>
 
-                    <td id="printSummaryName1">Person 2</td>
-                    <td id="printSummaryHeating1">0,00 €</td>
-                    <td id="printSummaryWater1">0,00 €</td>
-                    <td id="printSummaryTotal1">0,00 €</td>
+                    <td id="printSummaryName1">
+                        Person 2
+                    </td>
+
+                    <td id="printSummaryHeating1">
+                        0,00 €
+                    </td>
+
+                    <td id="printSummaryWater1">
+                        0,00 €
+                    </td>
+
+                    <td id="printSummaryTotal1">
+                        0,00 €
+                    </td>
 
                 </tr>
 
 
                 <tr>
 
-                    <td id="printSummaryName2">Person 3</td>
-                    <td id="printSummaryHeating2">0,00 €</td>
-                    <td id="printSummaryWater2">0,00 €</td>
-                    <td id="printSummaryTotal2">0,00 €</td>
+                    <td id="printSummaryName2">
+                        Person 3
+                    </td>
+
+                    <td id="printSummaryHeating2">
+                        0,00 €
+                    </td>
+
+                    <td id="printSummaryWater2">
+                        0,00 €
+                    </td>
+
+                    <td id="printSummaryTotal2">
+                        0,00 €
+                    </td>
 
                 </tr>
 
@@ -1926,16 +2314,15 @@ th {
 
 <script>
 
-
 /* =========================================================
    KONSTANTEN
    ========================================================= */
 
 const STORAGE_KEY =
-    "gastkostenabrechnung_history_v2";
+    "gastkostenabrechnung_history_v3";
 
 const THEME_KEY =
-    "gastkosten_theme";
+    "gastkosten_theme_v3";
 
 
 /* =========================================================
@@ -1943,6 +2330,7 @@ const THEME_KEY =
    ========================================================= */
 
 let appData = {
+
     names: [
         "Person 1",
         "Person 2",
@@ -1952,6 +2340,7 @@ let appData = {
     periods: [],
 
     currentPeriod: 0
+
 };
 
 
@@ -1961,10 +2350,11 @@ let appData = {
 
 function getNumber(id) {
 
+    const element =
+        document.getElementById(id);
+
     const value =
-        parseFloat(
-            document.getElementById(id).value
-        );
+        parseFloat(element.value);
 
     return Number.isFinite(value)
         ? value
@@ -1981,6 +2371,7 @@ function euro(value) {
             maximumFractionDigits: 2
         }
     ) + " €";
+
 }
 
 
@@ -1993,6 +2384,7 @@ function number(value) {
             maximumFractionDigits: 2
         }
     );
+
 }
 
 
@@ -2004,11 +2396,12 @@ function setText(id, value) {
     if (element) {
         element.textContent = value;
     }
+
 }
 
 
 /* =========================================================
-   NEUE LEERE ABRECHNUNG
+   NEUE ABRECHNUNG
    ========================================================= */
 
 function createEmptyPeriod() {
@@ -2028,17 +2421,33 @@ function createEmptyPeriod() {
 
         heating: {
 
-            old: ["", "", ""],
+            old: [
+                "",
+                "",
+                ""
+            ],
 
-            new: ["", "", ""]
+            new: [
+                "",
+                "",
+                ""
+            ]
 
         },
 
         water: {
 
-            old: ["", "", ""],
+            old: [
+                "",
+                "",
+                ""
+            ],
 
-            new: ["", "", ""]
+            new: [
+                "",
+                "",
+                ""
+            ]
 
         }
 
@@ -2048,7 +2457,7 @@ function createEmptyPeriod() {
 
 
 /* =========================================================
-   STANDARD-DATUM
+   HEUTIGES DATUM
    ========================================================= */
 
 function todayISO() {
@@ -2081,7 +2490,7 @@ function todayISO() {
 
 
 /* =========================================================
-   SORTIERUNG
+   SORTIEREN
    ========================================================= */
 
 function sortPeriods() {
@@ -2112,15 +2521,26 @@ function sortPeriods() {
 
 
 /* =========================================================
-   LOCAL STORAGE SPEICHERN
+   LOCAL STORAGE
    ========================================================= */
 
 function saveToLocalStorage() {
 
-    localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(appData)
-    );
+    try {
+
+        localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify(appData)
+        );
+
+    } catch (error) {
+
+        console.error(
+            "localStorage Fehler:",
+            error
+        );
+
+    }
 
 }
 
@@ -2131,9 +2551,12 @@ function saveToLocalStorage() {
 
 function saveCurrentPeriod() {
 
-    if (!appData.periods.length) {
+    if (
+        !appData.periods.length
+    ) {
         return;
     }
+
 
     const period =
         appData.periods[
@@ -2188,22 +2611,23 @@ function saveCurrentPeriod() {
 
         document.getElementById(
             "person0"
-        ).value,
+        ).value.trim() ||
+        "Person 1",
 
         document.getElementById(
             "person1"
-        ).value,
+        ).value.trim() ||
+        "Person 2",
 
         document.getElementById(
             "person2"
-        ).value
+        ).value.trim() ||
+        "Person 3"
 
     ];
 
 
     saveToLocalStorage();
-
-    updateHistory();
 
 }
 
@@ -2242,25 +2666,27 @@ function loadCurrentPeriod() {
         document.getElementById(
             "heatingOld" + i
         ).value =
-            period.heating.old[i] ?? "";
-
+            period.heating?.old?.[i]
+            ?? "";
 
         document.getElementById(
             "heatingNew" + i
         ).value =
-            period.heating.new[i] ?? "";
+            period.heating?.new?.[i]
+            ?? "";
 
 
         document.getElementById(
             "waterOld" + i
         ).value =
-            period.water.old[i] ?? "";
-
+            period.water?.old?.[i]
+            ?? "";
 
         document.getElementById(
             "waterNew" + i
         ).value =
-            period.water.new[i] ?? "";
+            period.water?.new?.[i]
+            ?? "";
 
     }
 
@@ -2311,16 +2737,6 @@ function saveNames() {
         "Person 3"
 
     ];
-
-
-    for (let i = 0; i < 3; i++) {
-
-        document.getElementById(
-            "person" + i
-        ).value =
-            appData.names[i];
-
-    }
 
 
     saveCurrentPeriod();
@@ -2409,7 +2825,7 @@ function showStatus(message) {
                 "none";
 
         },
-        2500
+        3000
     );
 
 }
@@ -2421,16 +2837,8 @@ function showStatus(message) {
 
 function newPeriod() {
 
-    /*
-     * Zuerst aktuelle Eingaben sichern.
-     */
-
     saveCurrentPeriod();
 
-
-    /*
-     * Aktuellen Zeitraum holen.
-     */
 
     const previous =
         appData.periods[
@@ -2442,19 +2850,16 @@ function newPeriod() {
         createEmptyPeriod();
 
 
-    /*
-     * Datum automatisch auf heute setzen.
-     */
-
     newPeriodData.date =
         todayISO();
 
 
     /*
-     * Wenn bereits eine Abrechnung existiert:
+     * WICHTIG:
      *
-     * Neuer ALTER Zählerstand =
-     * letzter NEUER Zählerstand
+     * Der letzte neue Zählerstand
+     * wird zum alten Zählerstand
+     * der neuen Abrechnung.
      */
 
     if (previous) {
@@ -2464,7 +2869,6 @@ function newPeriod() {
             newPeriodData.heating.old[i] =
                 previous.heating.new[i];
 
-
             newPeriodData.water.old[i] =
                 previous.water.new[i];
 
@@ -2473,25 +2877,13 @@ function newPeriod() {
     }
 
 
-    /*
-     * Neue Abrechnung hinzufügen.
-     */
-
     appData.periods.push(
         newPeriodData
     );
 
 
-    /*
-     * Chronologisch sortieren.
-     */
-
     sortPeriods();
 
-
-    /*
-     * Die neu angelegte Abrechnung suchen.
-     */
 
     appData.currentPeriod =
         appData.periods.findIndex(
@@ -2505,8 +2897,9 @@ function newPeriod() {
 
     loadCurrentPeriod();
 
+
     showStatus(
-        "Neue Abrechnung wurde angelegt. Die letzten Zählerstände wurden automatisch übernommen."
+        "Neue Abrechnung angelegt. Die letzten Zählerstände wurden automatisch übernommen."
     );
 
 }
@@ -2580,7 +2973,7 @@ function nextPeriod() {
 
 
 /* =========================================================
-   ABRECHNUNG LÖSCHEN
+   LÖSCHEN
    ========================================================= */
 
 function deleteCurrentPeriod() {
@@ -2598,17 +2991,13 @@ function deleteCurrentPeriod() {
         ];
 
 
-    const answer =
+    const confirmed =
         confirm(
-            "Soll die Abrechnung" +
-            (period.date
-                ? " vom " + formatDate(period.date)
-                : "") +
-            " wirklich gelöscht werden?"
+            "Soll die aktuelle Abrechnung wirklich gelöscht werden?"
         );
 
 
-    if (!answer) {
+    if (!confirmed) {
         return;
     }
 
@@ -2632,11 +3021,6 @@ function deleteCurrentPeriod() {
 
     }
 
-
-    /*
-     * Falls keine Abrechnung mehr existiert,
-     * eine neue leere anlegen.
-     */
 
     if (
         appData.periods.length === 0
@@ -2663,27 +3047,27 @@ function deleteCurrentPeriod() {
 
 
 /* =========================================================
-   DATUM GEÄNDERT
+   DATUM
    ========================================================= */
 
 function dateChanged() {
+
+    const oldId =
+        appData.periods[
+            appData.currentPeriod
+        ].id;
+
 
     saveCurrentPeriod();
 
     sortPeriods();
 
 
-    const currentId =
-        appData.periods[
-            appData.currentPeriod
-        ].id;
-
-
     appData.currentPeriod =
         appData.periods.findIndex(
             period =>
                 period.id ===
-                currentId
+                oldId
         );
 
 
@@ -2807,6 +3191,7 @@ function updateHistory() {
 
 
             left.appendChild(title);
+
             left.appendChild(date);
 
 
@@ -2834,6 +3219,7 @@ function updateHistory() {
 
 
             item.appendChild(left);
+
             item.appendChild(right);
 
 
@@ -2917,7 +3303,6 @@ function calculate() {
     let heatingDiff =
         [0, 0, 0];
 
-
     let waterDiff =
         [0, 0, 0];
 
@@ -2927,10 +3312,6 @@ function calculate() {
     let waterTotal = 0;
 
 
-    /*
-     * Zählerstände
-     */
-
     for (let i = 0; i < 3; i++) {
 
         const hOld =
@@ -2938,18 +3319,15 @@ function calculate() {
                 "heatingOld" + i
             );
 
-
         const hNew =
             getNumber(
                 "heatingNew" + i
             );
 
-
         const wOld =
             getNumber(
                 "waterOld" + i
             );
-
 
         const wNew =
             getNumber(
@@ -3015,13 +3393,8 @@ function calculate() {
     }
 
 
-    /*
-     * Kosten
-     */
-
     let heatingCosts =
         [0, 0, 0];
-
 
     let waterCosts =
         [0, 0, 0];
@@ -3101,10 +3474,6 @@ function calculate() {
     }
 
 
-    /*
-     * Gesamtkosten
-     */
-
     let grandTotal = 0;
 
 
@@ -3169,27 +3538,21 @@ function calculate() {
 
 
 /* =========================================================
-   JSON EXPORT
+   JSON SPEICHERN
    ========================================================= */
 
 function saveJSON() {
 
-    /*
-     * Aktuelle Eingaben zuerst speichern.
-     */
-
     saveCurrentPeriod();
 
 
-    /*
-     * Kopie erzeugen.
-     */
-
     const exportData = {
 
-        app: "Gastkostenabrechnung",
+        app:
+            "Gastkostenabrechnung",
 
-        version: 2,
+        version:
+            3,
 
         exportedAt:
             new Date()
@@ -3211,10 +3574,6 @@ function saveJSON() {
             2
         );
 
-
-    /*
-     * Datei erzeugen.
-     */
 
     const blob =
         new Blob(
@@ -3244,7 +3603,9 @@ function saveJSON() {
             .slice(0, 10);
 
 
-    link.href = url;
+    link.href =
+        url;
+
 
     link.download =
         "Gastkostenabrechnung_" +
@@ -3271,14 +3632,264 @@ function saveJSON() {
 
 
     showStatus(
-        "Alle Abrechnungen wurden als JSON-Datei gespeichert."
+        "Alle Abrechnungen wurden als JSON gespeichert."
     );
 
 }
 
 
 /* =========================================================
-   DRUCK
+   JSON LADEN
+   ========================================================= */
+
+function loadJSON(event) {
+
+    const file =
+        event.target.files[0];
+
+
+    if (!file) {
+        return;
+    }
+
+
+    const reader =
+        new FileReader();
+
+
+    reader.onload =
+        function(e) {
+
+            try {
+
+                const imported =
+                    JSON.parse(
+                        e.target.result
+                    );
+
+
+                /*
+                 * Grundlegende Prüfung
+                 */
+
+                if (
+                    !imported ||
+                    !Array.isArray(
+                        imported.periods
+                    ) ||
+                    !Array.isArray(
+                        imported.names
+                    )
+                ) {
+
+                    alert(
+                        "Die JSON-Datei ist keine gültige Gastkostenabrechnung."
+                    );
+
+                    return;
+
+                }
+
+
+                if (
+                    imported.names.length !== 3
+                ) {
+
+                    alert(
+                        "Die JSON-Datei muss genau drei Personen enthalten."
+                    );
+
+                    return;
+
+                }
+
+
+                /*
+                 * Sicherheitsabfrage
+                 */
+
+                const confirmed =
+                    confirm(
+                        "Sollen die aktuell gespeicherten Daten wirklich durch die Daten aus der JSON-Datei ersetzt werden?"
+                    );
+
+
+                if (!confirmed) {
+                    return;
+                }
+
+
+                /*
+                 * Daten übernehmen
+                 */
+
+                appData = {
+
+                    names: [
+
+                        imported.names[0]
+                            || "Person 1",
+
+                        imported.names[1]
+                            || "Person 2",
+
+                        imported.names[2]
+                            || "Person 3"
+
+                    ],
+
+                    periods:
+                        imported.periods,
+
+                    currentPeriod:
+                        0
+
+                };
+
+
+                /*
+                 * Abrechnungen normalisieren.
+                 *
+                 * Dadurch funktionieren auch ältere
+                 * JSON-Dateien möglichst zuverlässig.
+                 */
+
+                appData.periods =
+                    appData.periods.map(
+                        period => {
+
+                            const normalized =
+                                createEmptyPeriod();
+
+
+                            normalized.id =
+                                period.id ||
+                                normalized.id;
+
+
+                            normalized.date =
+                                period.date ||
+                                "";
+
+
+                            normalized.gasCost =
+                                period.gasCost ??
+                                4000;
+
+
+                            normalized.heating.old =
+                                period.heating?.old
+                                || ["", "", ""];
+
+
+                            normalized.heating.new =
+                                period.heating?.new
+                                || ["", "", ""];
+
+
+                            normalized.water.old =
+                                period.water?.old
+                                || ["", "", ""];
+
+
+                            normalized.water.new =
+                                period.water?.new
+                                || ["", "", ""];
+
+
+                            return normalized;
+
+                        }
+                    );
+
+
+                /*
+                 * Falls keine Abrechnung vorhanden ist
+                 */
+
+                if (
+                    appData.periods.length === 0
+                ) {
+
+                    appData.periods.push(
+                        createEmptyPeriod()
+                    );
+
+                }
+
+
+                /*
+                 * Chronologisch sortieren
+                 */
+
+                sortPeriods();
+
+
+                /*
+                 * Erste Abrechnung anzeigen
+                 */
+
+                appData.currentPeriod = 0;
+
+
+                /*
+                 * Im localStorage speichern
+                 */
+
+                saveToLocalStorage();
+
+
+                /*
+                 * Oberfläche aktualisieren
+                 */
+
+                loadCurrentPeriod();
+
+                updateHistory();
+
+                calculate();
+
+
+                showStatus(
+                    "JSON-Datei wurde erfolgreich geladen."
+                );
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Fehler beim JSON-Import:",
+                    error
+                );
+
+
+                alert(
+                    "Die JSON-Datei konnte nicht gelesen werden. Bitte prüfe, ob es sich um eine gültige Datei handelt."
+                );
+
+            }
+
+
+            /*
+             * Input zurücksetzen.
+             *
+             * Dadurch kann dieselbe JSON-Datei
+             * direkt erneut ausgewählt werden.
+             */
+
+            event.target.value = "";
+
+        };
+
+
+    reader.readAsText(file);
+
+}
+
+
+/* =========================================================
+   DRUCKZUSAMMENFASSUNG
    ========================================================= */
 
 function updatePrintSummary() {
@@ -3326,18 +3937,12 @@ function updatePrintSummary() {
     );
 
 
-    /*
-     * Namen
-     */
-
     for (let i = 0; i < 3; i++) {
 
         const name =
-            document
-                .getElementById(
-                    "person" + i
-                )
-                .value.trim() ||
+            document.getElementById(
+                "person" + i
+            ).value.trim() ||
             "Person " + (i + 1);
 
 
@@ -3346,24 +3951,20 @@ function updatePrintSummary() {
             name
         );
 
-
         setText(
             "printHName" + i,
             name
         );
-
 
         setText(
             "printWName" + i,
             name
         );
 
-
         setText(
             "printTotalName" + i,
             name
         );
-
 
         setText(
             "printSummaryName" + i,
@@ -3372,10 +3973,6 @@ function updatePrintSummary() {
 
     }
 
-
-    /*
-     * Verbrauch
-     */
 
     let heatingTotal = 0;
 
@@ -3389,18 +3986,15 @@ function updatePrintSummary() {
                 "heatingOld" + i
             );
 
-
         const hNew =
             getNumber(
                 "heatingNew" + i
             );
 
-
         const wOld =
             getNumber(
                 "waterOld" + i
             );
-
 
         const wNew =
             getNumber(
@@ -3432,12 +4026,10 @@ function updatePrintSummary() {
             number(hOld)
         );
 
-
         setText(
             "printHNew" + i,
             number(hNew)
         );
-
 
         setText(
             "printHDiff" + i,
@@ -3450,12 +4042,10 @@ function updatePrintSummary() {
             number(wOld)
         );
 
-
         setText(
             "printWNew" + i,
             number(wNew)
         );
-
 
         setText(
             "printWDiff" + i,
@@ -3464,10 +4054,6 @@ function updatePrintSummary() {
 
     }
 
-
-    /*
-     * Kosten
-     */
 
     let grandTotal = 0;
 
@@ -3479,18 +4065,15 @@ function updatePrintSummary() {
                 "heatingOld" + i
             );
 
-
         const hNew =
             getNumber(
                 "heatingNew" + i
             );
 
-
         const wOld =
             getNumber(
                 "waterOld" + i
             );
-
 
         const wNew =
             getNumber(
@@ -3669,6 +4252,14 @@ function printSummary() {
 
     updatePrintSummary();
 
+    /*
+     * window.print() öffnet keinen eigenen
+     * JavaScript-Popup.
+     *
+     * Der Browser zeigt seinen normalen
+     * Druckdialog an.
+     */
+
     window.print();
 
 }
@@ -3699,7 +4290,9 @@ function applyTheme(theme) {
         button.textContent =
             "☀️ Light Mode";
 
-    } else {
+    }
+
+    else {
 
         body.classList.remove(
             "dark-mode"
@@ -3743,7 +4336,7 @@ function toggleTheme() {
 function initialize() {
 
     /*
-     * Theme laden
+     * Theme
      */
 
     applyTheme(
@@ -3754,7 +4347,7 @@ function initialize() {
 
 
     /*
-     * Gespeicherte Daten laden
+     * Gespeicherte Daten
      */
 
     const saved =
@@ -3775,6 +4368,9 @@ function initialize() {
                 parsed &&
                 Array.isArray(
                     parsed.periods
+                ) &&
+                Array.isArray(
+                    parsed.names
                 )
             ) {
 
@@ -3783,10 +4379,12 @@ function initialize() {
 
             }
 
-        } catch (error) {
+        }
+
+        catch (error) {
 
             console.error(
-                "Fehler beim Laden:",
+                "Fehler beim Laden der gespeicherten Daten:",
                 error
             );
 
@@ -3796,7 +4394,7 @@ function initialize() {
 
 
     /*
-     * Falls noch keine Abrechnung existiert
+     * Falls noch keine Daten existieren
      */
 
     if (
@@ -3805,7 +4403,9 @@ function initialize() {
     ) {
 
         appData.periods = [
+
             createEmptyPeriod()
+
         ];
 
         appData.currentPeriod = 0;
@@ -3813,29 +4413,35 @@ function initialize() {
     }
 
 
+    /*
+     * Namen absichern
+     */
+
     if (
         !appData.names ||
         appData.names.length !== 3
     ) {
 
         appData.names = [
+
             "Person 1",
             "Person 2",
             "Person 3"
+
         ];
 
     }
 
 
     /*
-     * Sortieren
+     * Chronologisch sortieren
      */
 
     sortPeriods();
 
 
     /*
-     * Aktuellen Index absichern
+     * Index prüfen
      */
 
     if (
@@ -3850,10 +4456,11 @@ function initialize() {
 
 
     /*
-     * Daten laden
+     * Oberfläche laden
      */
 
     loadCurrentPeriod();
+
 
     saveToLocalStorage();
 
