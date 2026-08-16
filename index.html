@@ -1,672 +1,607 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Gastkostenabrechnung</title>
+<title>Gastkostenabrechnung</title>
 
-  <style>
+<style>
 
-    /* =========================================================
-       GRUNDLAYOUT
-       ========================================================= */
+* {
+    box-sizing: border-box;
+}
 
-    * {
-      box-sizing: border-box;
-    }
+:root {
+    --bg: #f3f4f6;
+    --card: #ffffff;
+    --text: #1f2937;
+    --muted: #6b7280;
+    --border: #d1d5db;
+    --input-bg: #ffffff;
+    --table-head: #f9fafb;
+    --total-bg: #eff6ff;
+    --person-bg: #f9fafb;
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --secondary: #e5e7eb;
+    --secondary-hover: #d1d5db;
+    --danger: #dc2626;
+    --success-bg: #ecfdf5;
+    --success-text: #047857;
+}
 
-    :root {
-      --bg: #f3f4f6;
-      --card: #ffffff;
-      --text: #1f2937;
-      --muted: #6b7280;
-      --border: #d1d5db;
-      --input-bg: #ffffff;
-      --table-head: #f9fafb;
-      --total-bg: #eff6ff;
-      --person-bg: #f9fafb;
-      --primary: #2563eb;
-      --primary-hover: #1d4ed8;
-      --secondary: #e5e7eb;
-      --secondary-hover: #d1d5db;
-      --danger: #dc2626;
-      --success-bg: #ecfdf5;
-      --success-text: #047857;
-    }
+body.dark-mode {
+    --bg: #111827;
+    --card: #1f2937;
+    --text: #f3f4f6;
+    --muted: #9ca3af;
+    --border: #4b5563;
+    --input-bg: #374151;
+    --table-head: #374151;
+    --total-bg: #1e3a5f;
+    --person-bg: #374151;
+    --primary: #3b82f6;
+    --primary-hover: #60a5fa;
+    --secondary: #4b5563;
+    --secondary-hover: #6b7280;
+    --danger: #ef4444;
+    --success-bg: #064e3b;
+    --success-text: #6ee7b7;
+}
 
-    body.dark-mode {
-      --bg: #111827;
-      --card: #1f2937;
-      --text: #f3f4f6;
-      --muted: #9ca3af;
-      --border: #4b5563;
-      --input-bg: #374151;
-      --table-head: #374151;
-      --total-bg: #1e3a5f;
-      --person-bg: #374151;
-      --primary: #3b82f6;
-      --primary-hover: #60a5fa;
-      --secondary: #4b5563;
-      --secondary-hover: #6b7280;
-      --danger: #ef4444;
-      --success-bg: #064e3b;
-      --success-text: #6ee7b7;
-    }
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    transition: background-color .25s, color .25s;
+}
 
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: var(--bg);
-      color: var(--text);
+.container {
+    max-width: 1100px;
+    margin: 30px auto;
+    padding: 20px;
+}
 
-      transition:
-        background-color 0.25s ease,
-        color 0.25s ease;
+h1 {
+    margin-bottom: 8px;
+}
+
+h2 {
+    margin-top: 0;
+}
+
+.subtitle {
+    color: var(--muted);
+    margin-bottom: 25px;
+}
+
+
+/* =========================================================
+   CARDS
+   ========================================================= */
+
+.card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 22px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.06);
+}
+
+body.dark-mode .card {
+    box-shadow: 0 2px 12px rgba(0,0,0,.25);
+}
+
+
+/* =========================================================
+   GRID
+   ========================================================= */
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+
+/* =========================================================
+   INPUTS
+   ========================================================= */
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+input {
+    width: 100%;
+    padding: 10px 12px;
+
+    border: 1px solid var(--border);
+    border-radius: 7px;
+
+    font-size: 16px;
+
+    background: var(--input-bg);
+    color: var(--text);
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(37,99,235,.15);
+}
+
+.hint {
+    color: var(--muted);
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+button {
+    border: none;
+    border-radius: 7px;
+
+    padding: 11px 18px;
+
+    font-size: 15px;
+    cursor: pointer;
+    font-weight: bold;
+
+    transition: background-color .2s, transform .1s;
+}
+
+button:active {
+    transform: scale(.98);
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--primary-hover);
+}
+
+.btn-secondary {
+    background: var(--secondary);
+    color: var(--text);
+}
+
+.btn-secondary:hover {
+    background: var(--secondary-hover);
+}
+
+.btn-danger {
+    background: var(--danger);
+    color: white;
+}
+
+.btn-danger:hover {
+    opacity: .9;
+}
+
+.btn-green {
+    background: #059669;
+    color: white;
+}
+
+.btn-green:hover {
+    background: #047857;
+}
+
+.btn-orange {
+    background: #ea580c;
+    color: white;
+}
+
+.btn-orange:hover {
+    background: #c2410c;
+}
+
+.button-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+
+/* =========================================================
+   THEME
+   ========================================================= */
+
+.theme-toggle {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    z-index: 1000;
+
+    background: #1f2937;
+    color: white;
+
+    border-radius: 9px;
+    padding: 10px 15px;
+}
+
+body.dark-mode .theme-toggle {
+    background: #f9fafb;
+    color: #111827;
+}
+
+
+/* =========================================================
+   ZEITPUNKT NAVIGATION
+   ========================================================= */
+
+.period-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 10px;
+    flex-wrap: wrap;
+
+    margin-bottom: 20px;
+}
+
+.period-info {
+    flex: 1;
+    min-width: 220px;
+
+    text-align: center;
+
+    background: var(--table-head);
+
+    border-radius: 10px;
+    padding: 12px;
+}
+
+.period-title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.period-date {
+    color: var(--muted);
+    margin-top: 4px;
+}
+
+
+/* =========================================================
+   TABELLEN
+   ========================================================= */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th,
+td {
+    padding: 11px 10px;
+    border-bottom: 1px solid var(--border);
+    text-align: right;
+}
+
+th:first-child,
+td:first-child {
+    text-align: left;
+}
+
+th {
+    background: var(--table-head);
+}
+
+.total-row {
+    font-weight: bold;
+    background: var(--total-bg);
+}
+
+
+/* =========================================================
+   PERSON KARTEN
+   ========================================================= */
+
+.person-card {
+    text-align: center;
+
+    padding: 20px;
+
+    background: var(--person-bg);
+
+    border-radius: 10px;
+}
+
+.person-name {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.big-number {
+    font-size: 25px;
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.cost-summary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.percentage {
+    color: #059669;
+    font-weight: bold;
+}
+
+.calculation-info {
+    margin-top: 15px;
+    padding: 12px;
+
+    background: var(--table-head);
+    border-radius: 8px;
+
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.status {
+    padding: 10px;
+    background: var(--success-bg);
+    color: var(--success-text);
+
+    border-radius: 7px;
+    margin-top: 15px;
+
+    display: none;
+}
+
+
+/* =========================================================
+   VERLAUF
+   ========================================================= */
+
+.history-list {
+    margin-top: 15px;
+}
+
+.history-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 12px;
+
+    border: 1px solid var(--border);
+    border-radius: 8px;
+
+    margin-bottom: 8px;
+
+    cursor: pointer;
+
+    background: var(--card);
+}
+
+.history-item:hover {
+    background: var(--table-head);
+}
+
+.history-item.active {
+    border-color: var(--primary);
+    background: var(--total-bg);
+}
+
+.history-item-title {
+    font-weight: bold;
+}
+
+.history-item-date {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   PRINT SUMMARY
+   ========================================================= */
+
+#printSummary {
+    display: none;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .grid,
+    .grid-2,
+    .cost-summary {
+        grid-template-columns: 1fr;
     }
 
     .container {
-      max-width: 1100px;
-      margin: 30px auto;
-      padding: 20px;
+        padding: 10px;
+        margin-top: 60px;
     }
-
-    h1 {
-      margin-bottom: 8px;
-    }
-
-    h2 {
-      margin-top: 0;
-    }
-
-    .subtitle {
-      color: var(--muted);
-      margin-bottom: 25px;
-    }
-
-
-    /* =========================================================
-       CARDS
-       ========================================================= */
 
     .card {
-      background: var(--card);
-      border-radius: 12px;
-      padding: 22px;
-      margin-bottom: 20px;
-
-      box-shadow:
-        0 2px 10px rgba(0, 0, 0, 0.06);
-
-      transition:
-        background-color 0.25s ease,
-        box-shadow 0.25s ease;
+        padding: 15px;
     }
-
-    body.dark-mode .card {
-      box-shadow:
-        0 2px 12px rgba(0, 0, 0, 0.25);
-    }
-
-
-    /* =========================================================
-       GRID
-       ========================================================= */
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-    }
-
-    .grid-2 {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
-    }
-
-
-    /* =========================================================
-       FORMULARE
-       ========================================================= */
-
-    label {
-      display: block;
-      font-weight: bold;
-      margin-bottom: 6px;
-    }
-
-    input {
-      width: 100%;
-      padding: 10px 12px;
-
-      border: 1px solid var(--border);
-      border-radius: 7px;
-
-      font-size: 16px;
-
-      background: var(--input-bg);
-      color: var(--text);
-
-      transition:
-        background-color 0.25s ease,
-        color 0.25s ease,
-        border-color 0.25s ease;
-    }
-
-    input:focus {
-      outline: none;
-
-      border-color:
-        var(--primary);
-
-      box-shadow:
-        0 0 0 2px rgba(37, 99, 235, 0.15);
-    }
-
-    input::placeholder {
-      color: var(--muted);
-    }
-
-
-    /* =========================================================
-       BUTTONS
-       ========================================================= */
-
-    button {
-      border: none;
-      border-radius: 7px;
-
-      padding: 11px 18px;
-
-      font-size: 15px;
-      cursor: pointer;
-      font-weight: bold;
-
-      transition:
-        background-color 0.2s ease,
-        transform 0.1s ease;
-    }
-
-    button:active {
-      transform: scale(0.98);
-    }
-
-    .btn-primary {
-      background: var(--primary);
-      color: white;
-    }
-
-    .btn-primary:hover {
-      background: var(--primary-hover);
-    }
-
-    .btn-secondary {
-      background: var(--secondary);
-      color: var(--text);
-    }
-
-    .btn-secondary:hover {
-      background: var(--secondary-hover);
-    }
-
-    .btn-danger {
-      background: var(--danger);
-      color: white;
-    }
-
-    .btn-danger:hover {
-      opacity: 0.9;
-    }
-
-    .button-row {
-      display: flex;
-      gap: 10px;
-
-      margin-top: 20px;
-
-      flex-wrap: wrap;
-    }
-
-
-    /* =========================================================
-       DRUCK BUTTON
-       ========================================================= */
-
-    .print-button {
-      background: #059669;
-      color: white;
-    }
-
-    .print-button:hover {
-      background: #047857;
-    }
-
-
-    /* =========================================================
-       DARK MODE BUTTON
-       ========================================================= */
-
-    .theme-toggle {
-      position: fixed;
-
-      top: 15px;
-      right: 15px;
-
-      z-index: 1000;
-
-      background: #1f2937;
-      color: white;
-
-      border: none;
-      border-radius: 9px;
-
-      padding: 10px 15px;
-
-      cursor: pointer;
-
-      font-size: 14px;
-      font-weight: bold;
-
-      box-shadow:
-        0 3px 10px rgba(0, 0, 0, 0.2);
-
-      transition:
-        background-color 0.2s ease,
-        transform 0.1s ease;
-    }
-
-    .theme-toggle:hover {
-      background: #374151;
-    }
-
-    body.dark-mode .theme-toggle {
-      background: #f9fafb;
-      color: #111827;
-    }
-
-    body.dark-mode .theme-toggle:hover {
-      background: #e5e7eb;
-    }
-
-
-    /* =========================================================
-       TABELLEN
-       ========================================================= */
 
     table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 15px;
+        font-size: 14px;
     }
 
     th,
     td {
-      padding: 11px 10px;
-
-      border-bottom:
-        1px solid var(--border);
-
-      text-align: right;
-    }
-
-    th:first-child,
-    td:first-child {
-      text-align: left;
-    }
-
-    th {
-      background: var(--table-head);
-    }
-
-    .total-row {
-      font-weight: bold;
-      background: var(--total-bg);
-    }
-
-
-    /* =========================================================
-       PERSON KARTEN
-       ========================================================= */
-
-    .person-card {
-      text-align: center;
-
-      padding: 20px;
-
-      background:
-        var(--person-bg);
-
-      border-radius: 10px;
-
-      transition:
-        background-color 0.25s ease;
-    }
-
-    .person-name {
-      font-weight: bold;
-      font-size: 18px;
-
-      margin-bottom: 8px;
-    }
-
-    .big-number {
-      font-size: 25px;
-
-      font-weight: bold;
-
-      color:
-        var(--primary);
-    }
-
-    .cost-summary {
-      display: grid;
-
-      grid-template-columns:
-        repeat(3, 1fr);
-
-      gap: 15px;
-
-      margin-top: 15px;
-    }
-
-
-    /* =========================================================
-       SONSTIGES
-       ========================================================= */
-
-    .percentage {
-      color: #059669;
-      font-weight: bold;
-    }
-
-    .hint {
-      color: var(--muted);
-
-      font-size: 14px;
-
-      margin-top: 5px;
-    }
-
-    .status {
-      padding: 10px;
-
-      background:
-        var(--success-bg);
-
-      color:
-        var(--success-text);
-
-      border-radius: 7px;
-
-      margin-top: 15px;
-
-      display: none;
-    }
-
-    .calculation-info {
-      margin-top: 15px;
-
-      padding: 12px;
-
-      background:
-        var(--table-head);
-
-      border-radius: 8px;
-
-      color:
-        var(--muted);
-
-      font-size: 14px;
-    }
-
-
-    /* =========================================================
-       DRUCK-ZUSAMMENFASSUNG
-       
-       Wird normalerweise nicht angezeigt.
-       Sie erscheint nur beim Drucken.
-       ========================================================= */
-
-    #printSummary {
-      display: none;
-    }
-
-
-    /* =========================================================
-       RESPONSIVE
-       ========================================================= */
-
-    @media (max-width: 700px) {
-
-      .grid,
-      .grid-2,
-      .cost-summary {
-        grid-template-columns: 1fr;
-      }
-
-      .container {
-        padding: 10px;
-
-        margin-top: 60px;
-      }
-
-      .theme-toggle {
-        top: 10px;
-        right: 10px;
-      }
-
-      table {
-        font-size: 14px;
-      }
-
-      th,
-      td {
         padding: 8px 5px;
-      }
-
-      .card {
-        padding: 15px;
-      }
-
     }
+}
 
 
-    /* =========================================================
-       DRUCKLAYOUT
-       ========================================================= */
+/* =========================================================
+   PRINT
+   ========================================================= */
 
-    @media print {
+@media print {
 
-      @page {
+    @page {
         size: A4;
         margin: 15mm;
-      }
+    }
 
-      body {
+    body {
         background: white !important;
         color: #111827 !important;
+    }
 
-        font-family:
-          Arial,
-          Helvetica,
-          sans-serif;
-      }
-
-      /*
-       * Normale Benutzeroberfläche beim Drucken verstecken
-       */
-
-      .container {
+    .container,
+    .theme-toggle {
         display: none !important;
-      }
+    }
 
-      .theme-toggle {
-        display: none !important;
-      }
-
-      /*
-       * Eigene Druckzusammenfassung anzeigen
-       */
-
-      #printSummary {
+    #printSummary {
         display: block !important;
-
         width: 100%;
-
         color: #111827 !important;
-
         background: white !important;
-      }
+    }
 
-      .print-header {
-        border-bottom:
-          3px solid #2563eb;
-
+    .print-header {
+        border-bottom: 3px solid #2563eb;
         padding-bottom: 12px;
-
         margin-bottom: 20px;
-      }
+    }
 
-      .print-title {
+    .print-title {
         font-size: 26px;
-
         font-weight: bold;
-
         margin-bottom: 5px;
-      }
+    }
 
-      .print-subtitle {
+    .print-subtitle {
         color: #6b7280;
-
         font-size: 13px;
-      }
+    }
 
-      .print-info {
+    .print-info {
         display: grid;
-
-        grid-template-columns:
-          repeat(3, 1fr);
-
+        grid-template-columns: repeat(3, 1fr);
         gap: 12px;
-
         margin-bottom: 20px;
-      }
+    }
 
-      .print-info-box {
-        border:
-          1px solid #d1d5db;
-
+    .print-info-box {
+        border: 1px solid #d1d5db;
         border-radius: 8px;
-
         padding: 10px;
-
         background: #f9fafb;
-      }
+    }
 
-      .print-info-label {
+    .print-info-label {
         font-size: 11px;
-
         color: #6b7280;
-
         margin-bottom: 4px;
-      }
+    }
 
-      .print-info-value {
+    .print-info-value {
         font-size: 15px;
-
         font-weight: bold;
-      }
+    }
 
-      .print-section {
+    .print-section {
         margin-top: 20px;
-
         page-break-inside: avoid;
-      }
+    }
 
-      .print-section-title {
+    .print-section-title {
         font-size: 17px;
-
         font-weight: bold;
 
         padding-bottom: 6px;
 
-        border-bottom:
-          1px solid #d1d5db;
+        border-bottom: 1px solid #d1d5db;
 
         margin-bottom: 8px;
-      }
+    }
 
-      .print-table {
+    .print-table {
         width: 100%;
-
         border-collapse: collapse;
-
         margin-top: 8px;
-      }
+    }
 
-      .print-table th {
+    .print-table th {
         background: #f3f4f6;
+    }
 
-        font-weight: bold;
-      }
-
-      .print-table th,
-      .print-table td {
-        border:
-          1px solid #d1d5db;
-
+    .print-table th,
+    .print-table td {
+        border: 1px solid #d1d5db;
         padding: 7px 8px;
-
         text-align: right;
-
         color: #111827 !important;
-      }
+    }
 
-      .print-table th:first-child,
-      .print-table td:first-child {
+    .print-table th:first-child,
+    .print-table td:first-child {
         text-align: left;
-      }
+    }
 
-      .print-total {
+    .print-total {
         background: #eff6ff !important;
-
         font-weight: bold;
-      }
+    }
 
-      .print-final {
+    .print-final {
         margin-top: 25px;
 
-        border:
-          2px solid #2563eb;
-
+        border: 2px solid #2563eb;
         border-radius: 10px;
 
         padding: 15px;
 
         page-break-inside: avoid;
-      }
+    }
 
-      .print-final-title {
+    .print-final-title {
         font-size: 19px;
-
         font-weight: bold;
 
         margin-bottom: 10px;
 
         color: #1d4ed8;
-      }
+    }
 
-      .print-person-grid {
+    .print-person-grid {
         display: grid;
-
-        grid-template-columns:
-          repeat(3, 1fr);
-
+        grid-template-columns: repeat(3, 1fr);
         gap: 10px;
-      }
+    }
 
-      .print-person {
+    .print-person {
         text-align: center;
 
         padding: 12px;
@@ -675,310 +610,359 @@
 
         border-radius: 7px;
 
-        border:
-          1px solid #e5e7eb;
-      }
+        border: 1px solid #e5e7eb;
+    }
 
-      .print-person-name {
+    .print-person-name {
         font-weight: bold;
-
         margin-bottom: 5px;
-      }
+    }
 
-      .print-person-cost {
+    .print-person-cost {
         font-size: 20px;
-
         font-weight: bold;
-
         color: #2563eb;
-      }
+    }
 
-      .print-footer {
+    .print-footer {
         margin-top: 25px;
 
         padding-top: 10px;
 
-        border-top:
-          1px solid #d1d5db;
+        border-top: 1px solid #d1d5db;
 
         color: #6b7280;
-
         font-size: 11px;
 
         display: flex;
-
         justify-content: space-between;
-      }
-
     }
+}
 
-  </style>
+</style>
 </head>
 
 
 <body>
 
 
-  <!-- =======================================================
-       DARK / LIGHT MODE
-       ======================================================= -->
+<!-- =========================================================
+     DARK MODE
+     ========================================================= -->
 
-  <button
+<button
     id="themeToggle"
     class="theme-toggle"
     onclick="toggleTheme()"
-  >
+>
     🌙 Dark Mode
-  </button>
+</button>
 
 
-
-  <!-- =======================================================
-       NORMALE APP
-       ======================================================= -->
-
-  <div class="container">
+<div class="container">
 
 
-    <!-- =====================================================
-         TITEL
-         ===================================================== -->
+<!-- =========================================================
+     TITEL
+     ========================================================= -->
 
-    <h1>
-      🔥 Gastkostenabrechnung
-    </h1>
+<h1>
+    🔥 Gastkostenabrechnung
+</h1>
 
-    <div class="subtitle">
-      Abrechnung für einen 3-Personen-Haushalt
+<div class="subtitle">
+    3-Personen-Haushalt · Historische Abrechnungen
+</div>
+
+
+<!-- =========================================================
+     ABRECHNUNGSZEITPUNKT
+     ========================================================= -->
+
+<div class="card">
+
+    <h2>
+        📅 Abrechnungszeitpunkt
+    </h2>
+
+
+    <div class="period-navigation">
+
+        <button
+            class="btn-secondary"
+            onclick="previousPeriod()"
+        >
+            ◀ Vorherige
+        </button>
+
+
+        <div class="period-info">
+
+            <div
+                class="period-title"
+                id="periodTitle"
+            >
+                Abrechnung 1
+            </div>
+
+            <div
+                class="period-date"
+                id="periodDateDisplay"
+            >
+                Noch kein Datum
+            </div>
+
+        </div>
+
+
+        <button
+            class="btn-secondary"
+            onclick="nextPeriod()"
+        >
+            Nächste ▶
+        </button>
+
     </div>
 
 
-    <!-- =====================================================
-         PERSONEN
-         ===================================================== -->
-
-    <div class="card">
-
-      <h2>
-        1. Personen
-      </h2>
-
-
-      <div class="grid">
-
-        <div>
-
-          <label for="person0">
-            Person 1
-          </label>
-
-          <input
-            id="person0"
-            type="text"
-            placeholder="Name"
-            oninput="updateNames(); saveData();"
-          >
-
-        </div>
-
-
-        <div>
-
-          <label for="person1">
-            Person 2
-          </label>
-
-          <input
-            id="person1"
-            type="text"
-            placeholder="Name"
-            oninput="updateNames(); saveData();"
-          >
-
-        </div>
-
-
-        <div>
-
-          <label for="person2">
-            Person 3
-          </label>
-
-          <input
-            id="person2"
-            type="text"
-            placeholder="Name"
-            oninput="updateNames(); saveData();"
-          >
-
-        </div>
-
-      </div>
-
-
-      <div class="button-row">
-
+    <div class="button-row">
 
         <button
-          class="btn-primary"
-          onclick="saveNames()"
+            class="btn-primary"
+            onclick="newPeriod()"
         >
-          💾 Namen speichern
+            ➕ Neue Abrechnung
         </button>
 
 
         <button
-          class="btn-secondary"
-          onclick="loadData()"
+            class="btn-orange"
+            onclick="deleteCurrentPeriod()"
         >
-          ↻ Gespeicherte Daten laden
+            🗑 Abrechnung löschen
         </button>
 
 
         <button
-          class="btn-danger"
-          onclick="resetAll()"
+            class="btn-green"
+            onclick="saveJSON()"
         >
-          🗑 Alles löschen
+            💾 Als JSON speichern
         </button>
 
 
         <button
-          class="print-button"
-          onclick="printSummary()"
+            class="btn-green"
+            onclick="printSummary()"
         >
-          🖨️ Abrechnung drucken
+            🖨️ Abrechnung drucken
         </button>
 
-      </div>
+    </div>
 
 
-      <div
+    <div
         id="saveStatus"
         class="status"
-      >
-        Daten wurden im Browser gespeichert.
-      </div>
+    >
+        Daten gespeichert.
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     PERSONEN
+     ========================================================= -->
+
+<div class="card">
+
+    <h2>
+        👥 Personen
+    </h2>
+
+
+    <div class="grid">
+
+        <div>
+
+            <label>
+                Person 1
+            </label>
+
+            <input
+                id="person0"
+                type="text"
+                placeholder="Name"
+                oninput="updateNames(); saveCurrentPeriod()"
+            >
+
+        </div>
+
+
+        <div>
+
+            <label>
+                Person 2
+            </label>
+
+            <input
+                id="person1"
+                type="text"
+                placeholder="Name"
+                oninput="updateNames(); saveCurrentPeriod()"
+            >
+
+        </div>
+
+
+        <div>
+
+            <label>
+                Person 3
+            </label>
+
+            <input
+                id="person2"
+                type="text"
+                placeholder="Name"
+                oninput="updateNames(); saveCurrentPeriod()"
+            >
+
+        </div>
 
     </div>
 
 
+    <div class="button-row">
 
-    <!-- =====================================================
-         ABRECHNUNGSDATEN
-         ===================================================== -->
+        <button
+            class="btn-primary"
+            onclick="saveNames()"
+        >
+            💾 Namen speichern
+        </button>
 
-    <div class="card">
+    </div>
 
-      <h2>
-        2. Abrechnungsdaten
-      </h2>
+</div>
 
 
-      <div class="grid-2">
 
+<!-- =========================================================
+     ABRECHNUNGSDATEN
+     ========================================================= -->
+
+<div class="card">
+
+    <h2>
+        1. Abrechnungsdaten
+    </h2>
+
+
+    <div class="grid-2">
 
         <div>
 
-          <label for="gasCost">
-            Gaskosten pro Jahr (€)
-          </label>
+            <label>
+                Abrechnungsdatum
+            </label>
 
-          <input
-            id="gasCost"
-            type="number"
-            min="0"
-            step="0.01"
-            value="4000"
-            oninput="calculate()"
-          >
+            <input
+                id="meterDate"
+                type="date"
+                onchange="dateChanged()"
+            >
 
-          <div class="hint">
-            Beispiel: 4.000 €
-          </div>
+            <div class="hint">
+                Dieses Datum wird zur chronologischen Sortierung verwendet.
+            </div>
 
         </div>
 
 
         <div>
 
-          <label for="meterDate">
-            Zählerstand / Datum
-          </label>
+            <label>
+                Gaskosten pro Jahr (€)
+            </label>
 
-          <input
-            id="meterDate"
-            type="text"
-            placeholder="z.B. 13.806,20 / 31.12.2026"
-            oninput="saveData()"
-          >
+            <input
+                id="gasCost"
+                type="number"
+                min="0"
+                step="0.01"
+                value="4000"
+                oninput="calculate(); saveCurrentPeriod()"
+            >
 
         </div>
 
-      </div>
+    </div>
 
 
-      <div class="calculation-info">
+    <div class="calculation-info">
 
         <strong>Berechnung:</strong>
 
         Heizung = 60 % der Gaskosten.
         Warmwasser = 40 % der Gaskosten.
 
-        Die Kosten werden innerhalb der jeweiligen
-        Kategorie proportional zum Verbrauch verteilt.
-
-      </div>
+        Die Kosten werden innerhalb der jeweiligen Kategorie
+        proportional zum Verbrauch verteilt.
 
     </div>
 
+</div>
 
 
-    <!-- =====================================================
-         HEIZUNG
-         ===================================================== -->
 
-    <div class="card">
+<!-- =========================================================
+     HEIZUNG
+     ========================================================= -->
 
-      <h2>
-        3. Heizung – 60 %
-      </h2>
+<div class="card">
+
+    <h2>
+        🔥 2. Heizung – 60 %
+    </h2>
 
 
-      <div class="grid">
+    <div class="grid">
 
 
         <!-- PERSON 1 -->
 
         <div>
 
-          <label id="heatingName0">
-            Person 1
-          </label>
+            <label id="heatingName0">
+                Person 1
+            </label>
 
-          <label>
-            Alter Zählerstand
-          </label>
+            <label>
+                Alter Zählerstand
+            </label>
 
-          <input
-            id="heatingOld0"
-            type="number"
-            min="0"
-            step="0.01"
-            oninput="calculate()"
-          >
+            <input
+                id="heatingOld0"
+                type="number"
+                min="0"
+                step="0.01"
+                oninput="calculate(); saveCurrentPeriod()"
+            >
 
-          <label style="margin-top:10px;">
-            Neuer Zählerstand
-          </label>
+            <label style="margin-top:10px;">
+                Neuer Zählerstand
+            </label>
 
-          <input
-            id="heatingNew0"
-            type="number"
-            min="0"
-            step="0.01"
-            oninput="calculate()"
-          >
+            <input
+                id="heatingNew0"
+                type="number"
+                min="0"
+                step="0.01"
+                oninput="calculate(); saveCurrentPeriod()"
+            >
 
         </div>
 
@@ -987,33 +971,33 @@
 
         <div>
 
-          <label id="heatingName1">
-            Person 2
-          </label>
+            <label id="heatingName1">
+                Person 2
+            </label>
 
-          <label>
-            Alter Zählerstand
-          </label>
+            <label>
+                Alter Zählerstand
+            </label>
 
-          <input
-            id="heatingOld1"
-            type="number"
-            min="0"
-            step="0.01"
-            oninput="calculate()"
-          >
+            <input
+                id="heatingOld1"
+                type="number"
+                min="0"
+                step="0.01"
+                oninput="calculate(); saveCurrentPeriod()"
+            >
 
-          <label style="margin-top:10px;">
-            Neuer Zählerstand
-          </label>
+            <label style="margin-top:10px;">
+                Neuer Zählerstand
+            </label>
 
-          <input
-            id="heatingNew1"
-            type="number"
-            min="0"
-            step="0.01"
-            oninput="calculate()"
-          >
+            <input
+                id="heatingNew1"
+                type="number"
+                min="0"
+                step="0.01"
+                oninput="calculate(); saveCurrentPeriod()"
+            >
 
         </div>
 
@@ -1022,234 +1006,167 @@
 
         <div>
 
-          <label id="heatingName2">
-            Person 3
-          </label>
+            <label id="heatingName2">
+                Person 3
+            </label>
 
-          <label>
-            Alter Zählerstand
-          </label>
+            <label>
+                Alter Zählerstand
+            </label>
 
-          <input
-            id="heatingOld2"
-            type="number"
-            min="0"
-            step="0.01"
-            oninput="calculate()"
-          >
+            <input
+                id="heatingOld2"
+                type="number"
+                min="0"
+                step="0.01"
+                oninput="calculate(); saveCurrentPeriod()"
+            >
 
-          <label style="margin-top:10px;">
-            Neuer Zählerstand
-          </label>
+            <label style="margin-top:10px;">
+                Neuer Zählerstand
+            </label>
 
-          <input
-            id="heatingNew2"
-            type="number"
-            min="0"
-            step="0.01"
-            oninput="calculate()"
-          >
+            <input
+                id="heatingNew2"
+                type="number"
+                min="0"
+                step="0.01"
+                oninput="calculate(); saveCurrentPeriod()"
+            >
 
         </div>
 
-      </div>
+    </div>
 
 
-      <table>
+    <table>
 
         <thead>
 
-          <tr>
+            <tr>
 
-            <th></th>
+                <th></th>
 
-            <th id="hTableName0">
-              Person 1
-            </th>
+                <th id="hTableName0">Person 1</th>
 
-            <th id="hTableName1">
-              Person 2
-            </th>
+                <th id="hTableName1">Person 2</th>
 
-            <th id="hTableName2">
-              Person 3
-            </th>
+                <th id="hTableName2">Person 3</th>
 
-          </tr>
+            </tr>
 
         </thead>
 
 
         <tbody>
 
+            <tr>
 
-          <tr>
+                <td>Alt</td>
 
-            <td>
-              Alt
-            </td>
+                <td id="hOld0">0</td>
+                <td id="hOld1">0</td>
+                <td id="hOld2">0</td>
 
-            <td id="hOld0">
-              0
-            </td>
-
-            <td id="hOld1">
-              0
-            </td>
-
-            <td id="hOld2">
-              0
-            </td>
-
-          </tr>
+            </tr>
 
 
-          <tr>
+            <tr>
 
-            <td>
-              Neu
-            </td>
+                <td>Neu</td>
 
-            <td id="hNew0">
-              0
-            </td>
+                <td id="hNew0">0</td>
+                <td id="hNew1">0</td>
+                <td id="hNew2">0</td>
 
-            <td id="hNew1">
-              0
-            </td>
-
-            <td id="hNew2">
-              0
-            </td>
-
-          </tr>
+            </tr>
 
 
-          <tr>
+            <tr>
 
-            <td>
-              Diff.
-            </td>
+                <td>Diff.</td>
 
-            <td id="hDiff0">
-              0
-            </td>
+                <td id="hDiff0">0</td>
+                <td id="hDiff1">0</td>
+                <td id="hDiff2">0</td>
 
-            <td id="hDiff1">
-              0
-            </td>
-
-            <td id="hDiff2">
-              0
-            </td>
-
-          </tr>
+            </tr>
 
 
-          <tr>
+            <tr>
 
-            <td>
-              Anteil
-            </td>
+                <td>Anteil</td>
 
-            <td
-              id="hPercent0"
-              class="percentage"
-            >
-              0 %
-            </td>
+                <td id="hPercent0" class="percentage">0 %</td>
+                <td id="hPercent1" class="percentage">0 %</td>
+                <td id="hPercent2" class="percentage">0 %</td>
 
-            <td
-              id="hPercent1"
-              class="percentage"
-            >
-              0 %
-            </td>
-
-            <td
-              id="hPercent2"
-              class="percentage"
-            >
-              0 %
-            </td>
-
-          </tr>
+            </tr>
 
 
-          <tr class="total-row">
+            <tr class="total-row">
 
-            <td>
-              Kosten
-            </td>
+                <td>Kosten</td>
 
-            <td id="hCost0">
-              0,00 €
-            </td>
+                <td id="hCost0">0,00 €</td>
+                <td id="hCost1">0,00 €</td>
+                <td id="hCost2">0,00 €</td>
 
-            <td id="hCost1">
-              0,00 €
-            </td>
-
-            <td id="hCost2">
-              0,00 €
-            </td>
-
-          </tr>
-
+            </tr>
 
         </tbody>
 
-      </table>
+    </table>
 
-    </div>
-
-
-
-    <!-- =====================================================
-         WARMWASSER
-         ===================================================== -->
-
-    <div class="card">
-
-      <h2>
-        4. Warmwasser – 40 %
-      </h2>
+</div>
 
 
-      <div class="grid">
+
+<!-- =========================================================
+     WARMWASSER
+     ========================================================= -->
+
+<div class="card">
+
+    <h2>
+        🚿 3. Warmwasser – 40 %
+    </h2>
+
+
+    <div class="grid">
 
 
         <!-- PERSON 1 -->
 
         <div>
 
-          <label id="waterName0">
-            Person 1
-          </label>
+            <label id="waterName0">
+                Person 1
+            </label>
 
-          <label>
-            Alter Zählerstand
-          </label>
+            <label>
+                Alter Zählerstand
+            </label>
 
-          <input
-            id="waterOld0"
-            type="number"
-            min="0"
-            step="0.01"
-            oninput="calculate()"
-          >
+            <input
+                id="waterOld0"
+                type="number"
+                min="0"
+                step="0.01"
+                oninput="calculate(); saveCurrentPeriod()"
+            >
 
-          <label style="margin-top:10px;">
-            Neuer Zählerstand
-          </label>
+            <label style="margin-top:10px;">
+                Neuer Zählerstand
+            </label>
 
-          <input
-            id="waterNew0"
-            type="number"
-            min="0"
-            step="0.01"
-            oninput="calculate()"
-          >
+            <input
+                id="waterNew0"
+                type="number"
+                min="0"
+                step="0.01"
+                oninput="calculate(); saveCurrentPeriod()"
+            >
 
         </div>
 
@@ -1258,33 +1175,33 @@
 
         <div>
 
-          <label id="waterName1">
-            Person 2
-          </label>
+            <label id="waterName1">
+                Person 2
+            </label>
 
-          <label>
-            Alter Zählerstand
-          </label>
+            <label>
+                Alter Zählerstand
+            </label>
 
-          <input
-            id="waterOld1"
-            type="number"
-            min="0"
-            step="0.01"
-            oninput="calculate()"
-          >
+            <input
+                id="waterOld1"
+                type="number"
+                min="0"
+                step="0.01"
+                oninput="calculate(); saveCurrentPeriod()"
+            >
 
-          <label style="margin-top:10px;">
-            Neuer Zählerstand
-          </label>
+            <label style="margin-top:10px;">
+                Neuer Zählerstand
+            </label>
 
-          <input
-            id="waterNew1"
-            type="number"
-            min="0"
-            step="0.01"
-            oninput="calculate()"
-          >
+            <input
+                id="waterNew1"
+                type="number"
+                min="0"
+                step="0.01"
+                oninput="calculate(); saveCurrentPeriod()"
+            >
 
         </div>
 
@@ -1293,1329 +1210,1765 @@
 
         <div>
 
-          <label id="waterName2">
-            Person 3
-          </label>
+            <label id="waterName2">
+                Person 3
+            </label>
 
-          <label>
-            Alter Zählerstand
-          </label>
+            <label>
+                Alter Zählerstand
+            </label>
 
-          <input
-            id="waterOld2"
-            type="number"
-            min="0"
-            step="0.01"
-            oninput="calculate()"
-          >
+            <input
+                id="waterOld2"
+                type="number"
+                min="0"
+                step="0.01"
+                oninput="calculate(); saveCurrentPeriod()"
+            >
 
-          <label style="margin-top:10px;">
-            Neuer Zählerstand
-          </label>
+            <label style="margin-top:10px;">
+                Neuer Zählerstand
+            </label>
 
-          <input
-            id="waterNew2"
-            type="number"
-            min="0"
-            step="0.01"
-            oninput="calculate()"
-          >
+            <input
+                id="waterNew2"
+                type="number"
+                min="0"
+                step="0.01"
+                oninput="calculate(); saveCurrentPeriod()"
+            >
 
         </div>
 
-      </div>
+    </div>
 
 
-      <table>
+    <table>
 
         <thead>
 
-          <tr>
+            <tr>
 
-            <th></th>
+                <th></th>
 
-            <th id="wTableName0">
-              Person 1
-            </th>
+                <th id="wTableName0">Person 1</th>
+                <th id="wTableName1">Person 2</th>
+                <th id="wTableName2">Person 3</th>
 
-            <th id="wTableName1">
-              Person 2
-            </th>
-
-            <th id="wTableName2">
-              Person 3
-            </th>
-
-          </tr>
+            </tr>
 
         </thead>
 
 
         <tbody>
 
+            <tr>
 
-          <tr>
+                <td>Alt</td>
 
-            <td>
-              Alt
-            </td>
+                <td id="wOld0">0</td>
+                <td id="wOld1">0</td>
+                <td id="wOld2">0</td>
 
-            <td id="wOld0">
-              0
-            </td>
-
-            <td id="wOld1">
-              0
-            </td>
-
-            <td id="wOld2">
-              0
-            </td>
-
-          </tr>
+            </tr>
 
 
-          <tr>
+            <tr>
 
-            <td>
-              Neu
-            </td>
+                <td>Neu</td>
 
-            <td id="wNew0">
-              0
-            </td>
+                <td id="wNew0">0</td>
+                <td id="wNew1">0</td>
+                <td id="wNew2">0</td>
 
-            <td id="wNew1">
-              0
-            </td>
-
-            <td id="wNew2">
-              0
-            </td>
-
-          </tr>
+            </tr>
 
 
-          <tr>
+            <tr>
 
-            <td>
-              Diff.
-            </td>
+                <td>Diff.</td>
 
-            <td id="wDiff0">
-              0
-            </td>
+                <td id="wDiff0">0</td>
+                <td id="wDiff1">0</td>
+                <td id="wDiff2">0</td>
 
-            <td id="wDiff1">
-              0
-            </td>
-
-            <td id="wDiff2">
-              0
-            </td>
-
-          </tr>
+            </tr>
 
 
-          <tr>
+            <tr>
 
-            <td>
-              Anteil
-            </td>
+                <td>Anteil</td>
 
-            <td
-              id="wPercent0"
-              class="percentage"
-            >
-              0 %
-            </td>
+                <td id="wPercent0" class="percentage">0 %</td>
+                <td id="wPercent1" class="percentage">0 %</td>
+                <td id="wPercent2" class="percentage">0 %</td>
 
-            <td
-              id="wPercent1"
-              class="percentage"
-            >
-              0 %
-            </td>
-
-            <td
-              id="wPercent2"
-              class="percentage"
-            >
-              0 %
-            </td>
-
-          </tr>
+            </tr>
 
 
-          <tr class="total-row">
+            <tr class="total-row">
 
-            <td>
-              Kosten
-            </td>
+                <td>Kosten</td>
 
-            <td id="wCost0">
-              0,00 €
-            </td>
+                <td id="wCost0">0,00 €</td>
+                <td id="wCost1">0,00 €</td>
+                <td id="wCost2">0,00 €</td>
 
-            <td id="wCost1">
-              0,00 €
-            </td>
-
-            <td id="wCost2">
-              0,00 €
-            </td>
-
-          </tr>
-
+            </tr>
 
         </tbody>
 
-      </table>
+    </table>
+
+</div>
+
+
+
+<!-- =========================================================
+     GESAMTKOSTEN
+     ========================================================= -->
+
+<div class="card">
+
+    <h2>
+        💰 4. Gesamtkosten pro Person
+    </h2>
+
+
+    <div class="cost-summary">
+
+        <div class="person-card">
+
+            <div class="person-name" id="totalName0">
+                Person 1
+            </div>
+
+            <div class="big-number" id="totalCost0">
+                0,00 €
+            </div>
+
+        </div>
+
+
+        <div class="person-card">
+
+            <div class="person-name" id="totalName1">
+                Person 2
+            </div>
+
+            <div class="big-number" id="totalCost1">
+                0,00 €
+            </div>
+
+        </div>
+
+
+        <div class="person-card">
+
+            <div class="person-name" id="totalName2">
+                Person 3
+            </div>
+
+            <div class="big-number" id="totalCost2">
+                0,00 €
+            </div>
+
+        </div>
 
     </div>
 
 
-
-    <!-- =====================================================
-         GESAMTKOSTEN
-         ===================================================== -->
-
-    <div class="card">
-
-      <h2>
-        5. Gesamtkosten pro Person
-      </h2>
-
-
-      <div class="cost-summary">
-
-
-        <div class="person-card">
-
-          <div
-            class="person-name"
-            id="totalName0"
-          >
-            Person 1
-          </div>
-
-          <div
-            class="big-number"
-            id="totalCost0"
-          >
-            0,00 €
-          </div>
-
-        </div>
-
-
-        <div class="person-card">
-
-          <div
-            class="person-name"
-            id="totalName1"
-          >
-            Person 2
-          </div>
-
-          <div
-            class="big-number"
-            id="totalCost1"
-          >
-            0,00 €
-          </div>
-
-        </div>
-
-
-        <div class="person-card">
-
-          <div
-            class="person-name"
-            id="totalName2"
-          >
-            Person 3
-          </div>
-
-          <div
-            class="big-number"
-            id="totalCost2"
-          >
-            0,00 €
-          </div>
-
-        </div>
-
-
-      </div>
-
-
-      <table>
+    <table>
 
         <thead>
 
-          <tr>
+            <tr>
 
-            <th>
-              Person
-            </th>
+                <th>Person</th>
+                <th>Heizung 60 %</th>
+                <th>Warmwasser 40 %</th>
+                <th>Gesamt</th>
 
-            <th>
-              Heizung 60 %
-            </th>
-
-            <th>
-              Warmwasser 40 %
-            </th>
-
-            <th>
-              Gesamt
-            </th>
-
-          </tr>
+            </tr>
 
         </thead>
 
 
         <tbody>
 
+            <tr>
 
-          <tr>
+                <td id="summaryName0">Person 1</td>
+                <td id="summaryHeating0">0,00 €</td>
+                <td id="summaryWater0">0,00 €</td>
+                <td id="summaryTotal0">0,00 €</td>
 
-            <td id="summaryName0">
-              Person 1
-            </td>
-
-            <td id="summaryHeating0">
-              0,00 €
-            </td>
-
-            <td id="summaryWater0">
-              0,00 €
-            </td>
-
-            <td id="summaryTotal0">
-              0,00 €
-            </td>
-
-          </tr>
+            </tr>
 
 
-          <tr>
+            <tr>
 
-            <td id="summaryName1">
-              Person 2
-            </td>
+                <td id="summaryName1">Person 2</td>
+                <td id="summaryHeating1">0,00 €</td>
+                <td id="summaryWater1">0,00 €</td>
+                <td id="summaryTotal1">0,00 €</td>
 
-            <td id="summaryHeating1">
-              0,00 €
-            </td>
-
-            <td id="summaryWater1">
-              0,00 €
-            </td>
-
-            <td id="summaryTotal1">
-              0,00 €
-            </td>
-
-          </tr>
+            </tr>
 
 
-          <tr>
+            <tr>
 
-            <td id="summaryName2">
-              Person 3
-            </td>
+                <td id="summaryName2">Person 3</td>
+                <td id="summaryHeating2">0,00 €</td>
+                <td id="summaryWater2">0,00 €</td>
+                <td id="summaryTotal2">0,00 €</td>
 
-            <td id="summaryHeating2">
-              0,00 €
-            </td>
-
-            <td id="summaryWater2">
-              0,00 €
-            </td>
-
-            <td id="summaryTotal2">
-              0,00 €
-            </td>
-
-          </tr>
+            </tr>
 
 
-          <tr class="total-row">
+            <tr class="total-row">
 
-            <td>
-              Gesamt
-            </td>
+                <td>Gesamt</td>
 
-            <td id="summaryHeatingTotal">
-              0,00 €
-            </td>
+                <td id="summaryHeatingTotal">
+                    0,00 €
+                </td>
 
-            <td id="summaryWaterTotal">
-              0,00 €
-            </td>
+                <td id="summaryWaterTotal">
+                    0,00 €
+                </td>
 
-            <td id="summaryGrandTotal">
-              0,00 €
-            </td>
+                <td id="summaryGrandTotal">
+                    0,00 €
+                </td>
 
-          </tr>
-
+            </tr>
 
         </tbody>
 
-      </table>
+    </table>
 
+</div>
+
+
+
+<!-- =========================================================
+     VERLAUF
+     ========================================================= -->
+
+<div class="card">
+
+    <h2>
+        📜 Abrechnungshistorie
+    </h2>
+
+    <div class="hint">
+        Alle angelegten Abrechnungszeitpunkte werden hier chronologisch
+        angezeigt. Klicke auf einen Eintrag, um ihn zu öffnen.
     </div>
 
 
-  </div>
+    <div
+        id="historyList"
+        class="history-list"
+    ></div>
+
+</div>
+
+
+</div>
 
 
 
-  <!-- =======================================================
-       DRUCK-ZUSAMMENFASSUNG
-       ======================================================= -->
+<!-- =========================================================
+     DRUCKZUSAMMENFASSUNG
+     ========================================================= -->
 
-  <div id="printSummary">
+<div id="printSummary">
 
     <div class="print-header">
 
-      <div class="print-title">
-        Gastkostenabrechnung
-      </div>
+        <div class="print-title">
+            Gastkostenabrechnung
+        </div>
 
-      <div class="print-subtitle">
-        Kostenübersicht für den 3-Personen-Haushalt
-      </div>
+        <div class="print-subtitle">
+            3-Personen-Haushalt
+        </div>
 
     </div>
 
-
-    <!-- BASISDATEN -->
 
     <div class="print-info">
 
+        <div class="print-info-box">
 
-      <div class="print-info-box">
+            <div class="print-info-label">
+                Abrechnungsdatum
+            </div>
 
-        <div class="print-info-label">
-          Abrechnungszeitraum / Datum
+            <div
+                class="print-info-value"
+                id="printMeterDate"
+            >
+                -
+            </div>
+
         </div>
 
-        <div
-          class="print-info-value"
-          id="printMeterDate"
-        >
-          -
+
+        <div class="print-info-box">
+
+            <div class="print-info-label">
+                Gaskosten
+            </div>
+
+            <div
+                class="print-info-value"
+                id="printGasCost"
+            >
+                0,00 €
+            </div>
+
         </div>
 
-      </div>
 
+        <div class="print-info-box">
 
-      <div class="print-info-box">
+            <div class="print-info-label">
+                Abrechnung
+            </div>
 
-        <div class="print-info-label">
-          Gaskosten
+            <div
+                class="print-info-value"
+                id="printPeriod"
+            >
+                -
+            </div>
+
         </div>
-
-        <div
-          class="print-info-value"
-          id="printGasCost"
-        >
-          0,00 €
-        </div>
-
-      </div>
-
-
-      <div class="print-info-box">
-
-        <div class="print-info-label">
-          Aufteilung
-        </div>
-
-        <div class="print-info-value">
-          Heizung 60 % / Warmwasser 40 %
-        </div>
-
-      </div>
-
 
     </div>
-
 
 
     <!-- PERSONEN -->
 
     <div class="print-section">
 
-      <div class="print-section-title">
-        Personen
-      </div>
+        <div class="print-section-title">
+            Personen
+        </div>
 
 
-      <table class="print-table">
+        <table class="print-table">
 
-        <thead>
+            <tr>
 
-          <tr>
+                <th>Person 1</th>
+                <th>Person 2</th>
+                <th>Person 3</th>
 
-            <th>
-              Person 1
-            </th>
-
-            <th>
-              Person 2
-            </th>
-
-            <th>
-              Person 3
-            </th>
-
-          </tr>
-
-        </thead>
+            </tr>
 
 
-        <tbody>
+            <tr>
 
-          <tr>
+                <td id="printPerson0">Person 1</td>
+                <td id="printPerson1">Person 2</td>
+                <td id="printPerson2">Person 3</td>
 
-            <td id="printPerson0">
-              Person 1
-            </td>
+            </tr>
 
-            <td id="printPerson1">
-              Person 2
-            </td>
-
-            <td id="printPerson2">
-              Person 3
-            </td>
-
-          </tr>
-
-        </tbody>
-
-      </table>
+        </table>
 
     </div>
-
 
 
     <!-- HEIZUNG -->
 
     <div class="print-section">
 
-      <div class="print-section-title">
-        Heizung – 60 %
-      </div>
+        <div class="print-section-title">
+            Heizung – 60 %
+        </div>
 
 
-      <table class="print-table">
+        <table class="print-table">
 
-        <thead>
+            <thead>
 
-          <tr>
+                <tr>
 
-            <th>
-              Person
-            </th>
+                    <th>Person</th>
+                    <th>Alt</th>
+                    <th>Neu</th>
+                    <th>Verbrauch</th>
+                    <th>Anteil</th>
+                    <th>Kosten</th>
 
-            <th>
-              Alt
-            </th>
+                </tr>
 
-            <th>
-              Neu
-            </th>
-
-            <th>
-              Verbrauch
-            </th>
-
-            <th>
-              Anteil
-            </th>
-
-            <th>
-              Kosten
-            </th>
-
-          </tr>
-
-        </thead>
+            </thead>
 
 
-        <tbody>
+            <tbody>
+
+                <tr>
+
+                    <td id="printHName0">Person 1</td>
+                    <td id="printHOld0">0</td>
+                    <td id="printHNew0">0</td>
+                    <td id="printHDiff0">0</td>
+                    <td id="printHPercent0">0 %</td>
+                    <td id="printHCost0">0,00 €</td>
+
+                </tr>
 
 
-          <tr>
+                <tr>
 
-            <td id="printHName0">
-              Person 1
-            </td>
+                    <td id="printHName1">Person 2</td>
+                    <td id="printHOld1">0</td>
+                    <td id="printHNew1">0</td>
+                    <td id="printHDiff1">0</td>
+                    <td id="printHPercent1">0 %</td>
+                    <td id="printHCost1">0,00 €</td>
 
-            <td id="printHOld0">
-              0
-            </td>
-
-            <td id="printHNew0">
-              0
-            </td>
-
-            <td id="printHDiff0">
-              0
-            </td>
-
-            <td id="printHPercent0">
-              0 %
-            </td>
-
-            <td id="printHCost0">
-              0,00 €
-            </td>
-
-          </tr>
+                </tr>
 
 
-          <tr>
+                <tr>
 
-            <td id="printHName1">
-              Person 2
-            </td>
+                    <td id="printHName2">Person 3</td>
+                    <td id="printHOld2">0</td>
+                    <td id="printHNew2">0</td>
+                    <td id="printHDiff2">0</td>
+                    <td id="printHPercent2">0 %</td>
+                    <td id="printHCost2">0,00 €</td>
 
-            <td id="printHOld1">
-              0
-            </td>
-
-            <td id="printHNew1">
-              0
-            </td>
-
-            <td id="printHDiff1">
-              0
-            </td>
-
-            <td id="printHPercent1">
-              0 %
-            </td>
-
-            <td id="printHCost1">
-              0,00 €
-            </td>
-
-          </tr>
+                </tr>
 
 
-          <tr>
+                <tr class="print-total">
 
-            <td id="printHName2">
-              Person 3
-            </td>
+                    <td>Gesamt</td>
+                    <td>-</td>
+                    <td>-</td>
 
-            <td id="printHOld2">
-              0
-            </td>
+                    <td id="printHeatingTotalConsumption">
+                        0
+                    </td>
 
-            <td id="printHNew2">
-              0
-            </td>
+                    <td>100 %</td>
 
-            <td id="printHDiff2">
-              0
-            </td>
+                    <td id="printHeatingTotal">
+                        0,00 €
+                    </td>
 
-            <td id="printHPercent2">
-              0 %
-            </td>
+                </tr>
 
-            <td id="printHCost2">
-              0,00 €
-            </td>
+            </tbody>
 
-          </tr>
-
-
-          <tr class="print-total">
-
-            <td>
-              Gesamt
-            </td>
-
-            <td>
-              -
-            </td>
-
-            <td>
-              -
-            </td>
-
-            <td id="printHeatingTotalConsumption">
-              0
-            </td>
-
-            <td>
-              100 %
-            </td>
-
-            <td id="printHeatingTotal">
-              0,00 €
-            </td>
-
-          </tr>
-
-
-        </tbody>
-
-      </table>
+        </table>
 
     </div>
-
 
 
     <!-- WARMWASSER -->
 
     <div class="print-section">
 
-      <div class="print-section-title">
-        Warmwasser – 40 %
-      </div>
+        <div class="print-section-title">
+            Warmwasser – 40 %
+        </div>
 
 
-      <table class="print-table">
+        <table class="print-table">
 
-        <thead>
+            <thead>
 
-          <tr>
+                <tr>
 
-            <th>
-              Person
-            </th>
+                    <th>Person</th>
+                    <th>Alt</th>
+                    <th>Neu</th>
+                    <th>Verbrauch</th>
+                    <th>Anteil</th>
+                    <th>Kosten</th>
 
-            <th>
-              Alt
-            </th>
+                </tr>
 
-            <th>
-              Neu
-            </th>
-
-            <th>
-              Verbrauch
-            </th>
-
-            <th>
-              Anteil
-            </th>
-
-            <th>
-              Kosten
-            </th>
-
-          </tr>
-
-        </thead>
+            </thead>
 
 
-        <tbody>
+            <tbody>
+
+                <tr>
+
+                    <td id="printWName0">Person 1</td>
+                    <td id="printWOld0">0</td>
+                    <td id="printWNew0">0</td>
+                    <td id="printWDiff0">0</td>
+                    <td id="printWPercent0">0 %</td>
+                    <td id="printWCost0">0,00 €</td>
+
+                </tr>
 
 
-          <tr>
+                <tr>
 
-            <td id="printWName0">
-              Person 1
-            </td>
+                    <td id="printWName1">Person 2</td>
+                    <td id="printWOld1">0</td>
+                    <td id="printWNew1">0</td>
+                    <td id="printWDiff1">0</td>
+                    <td id="printWPercent1">0 %</td>
+                    <td id="printWCost1">0,00 €</td>
 
-            <td id="printWOld0">
-              0
-            </td>
-
-            <td id="printWNew0">
-              0
-            </td>
-
-            <td id="printWDiff0">
-              0
-            </td>
-
-            <td id="printWPercent0">
-              0 %
-            </td>
-
-            <td id="printWCost0">
-              0,00 €
-            </td>
-
-          </tr>
+                </tr>
 
 
-          <tr>
+                <tr>
 
-            <td id="printWName1">
-              Person 2
-            </td>
+                    <td id="printWName2">Person 3</td>
+                    <td id="printWOld2">0</td>
+                    <td id="printWNew2">0</td>
+                    <td id="printWDiff2">0</td>
+                    <td id="printWPercent2">0 %</td>
+                    <td id="printWCost2">0,00 €</td>
 
-            <td id="printWOld1">
-              0
-            </td>
-
-            <td id="printWNew1">
-              0
-            </td>
-
-            <td id="printWDiff1">
-              0
-            </td>
-
-            <td id="printWPercent1">
-              0 %
-            </td>
-
-            <td id="printWCost1">
-              0,00 €
-            </td>
-
-          </tr>
+                </tr>
 
 
-          <tr>
+                <tr class="print-total">
 
-            <td id="printWName2">
-              Person 3
-            </td>
+                    <td>Gesamt</td>
+                    <td>-</td>
+                    <td>-</td>
 
-            <td id="printWOld2">
-              0
-            </td>
+                    <td id="printWaterTotalConsumption">
+                        0
+                    </td>
 
-            <td id="printWNew2">
-              0
-            </td>
+                    <td>100 %</td>
 
-            <td id="printWDiff2">
-              0
-            </td>
+                    <td id="printWaterTotal">
+                        0,00 €
+                    </td>
 
-            <td id="printWPercent2">
-              0 %
-            </td>
+                </tr>
 
-            <td id="printWCost2">
-              0,00 €
-            </td>
+            </tbody>
 
-          </tr>
-
-
-          <tr class="print-total">
-
-            <td>
-              Gesamt
-            </td>
-
-            <td>
-              -
-            </td>
-
-            <td>
-              -
-            </td>
-
-            <td id="printWaterTotalConsumption">
-              0
-            </td>
-
-            <td>
-              100 %
-            </td>
-
-            <td id="printWaterTotal">
-              0,00 €
-            </td>
-
-          </tr>
-
-
-        </tbody>
-
-      </table>
+        </table>
 
     </div>
 
 
-
-    <!-- GESAMTABRECHNUNG -->
+    <!-- GESAMT -->
 
     <div class="print-final">
 
-      <div class="print-final-title">
-        Gesamtkosten pro Person
-      </div>
+        <div class="print-final-title">
+            Gesamtkosten pro Person
+        </div>
 
 
-      <div class="print-person-grid">
+        <div class="print-person-grid">
+
+            <div class="print-person">
+
+                <div
+                    class="print-person-name"
+                    id="printTotalName0"
+                >
+                    Person 1
+                </div>
+
+                <div
+                    class="print-person-cost"
+                    id="printTotalCost0"
+                >
+                    0,00 €
+                </div>
+
+            </div>
 
 
-        <div class="print-person">
+            <div class="print-person">
 
-          <div
-            class="print-person-name"
-            id="printTotalName0"
-          >
-            Person 1
-          </div>
+                <div
+                    class="print-person-name"
+                    id="printTotalName1"
+                >
+                    Person 2
+                </div>
 
-          <div
-            class="print-person-cost"
-            id="printTotalCost0"
-          >
-            0,00 €
-          </div>
+                <div
+                    class="print-person-cost"
+                    id="printTotalCost1"
+                >
+                    0,00 €
+                </div>
+
+            </div>
+
+
+            <div class="print-person">
+
+                <div
+                    class="print-person-name"
+                    id="printTotalName2"
+                >
+                    Person 3
+                </div>
+
+                <div
+                    class="print-person-cost"
+                    id="printTotalCost2"
+                >
+                    0,00 €
+                </div>
+
+            </div>
 
         </div>
 
 
-        <div class="print-person">
+        <table class="print-table">
 
-          <div
-            class="print-person-name"
-            id="printTotalName1"
-          >
-            Person 2
-          </div>
+            <thead>
 
-          <div
-            class="print-person-cost"
-            id="printTotalCost1"
-          >
-            0,00 €
-          </div>
+                <tr>
 
-        </div>
+                    <th>Person</th>
+                    <th>Heizung</th>
+                    <th>Warmwasser</th>
+                    <th>Gesamt</th>
+
+                </tr>
+
+            </thead>
 
 
-        <div class="print-person">
+            <tbody>
 
-          <div
-            class="print-person-name"
-            id="printTotalName2"
-          >
-            Person 3
-          </div>
+                <tr>
 
-          <div
-            class="print-person-cost"
-            id="printTotalCost2"
-          >
-            0,00 €
-          </div>
+                    <td id="printSummaryName0">Person 1</td>
+                    <td id="printSummaryHeating0">0,00 €</td>
+                    <td id="printSummaryWater0">0,00 €</td>
+                    <td id="printSummaryTotal0">0,00 €</td>
 
-        </div>
+                </tr>
 
 
-      </div>
+                <tr>
+
+                    <td id="printSummaryName1">Person 2</td>
+                    <td id="printSummaryHeating1">0,00 €</td>
+                    <td id="printSummaryWater1">0,00 €</td>
+                    <td id="printSummaryTotal1">0,00 €</td>
+
+                </tr>
 
 
-      <table class="print-table">
+                <tr>
 
-        <thead>
+                    <td id="printSummaryName2">Person 3</td>
+                    <td id="printSummaryHeating2">0,00 €</td>
+                    <td id="printSummaryWater2">0,00 €</td>
+                    <td id="printSummaryTotal2">0,00 €</td>
 
-          <tr>
-
-            <th>
-              Person
-            </th>
-
-            <th>
-              Heizung
-            </th>
-
-            <th>
-              Warmwasser
-            </th>
-
-            <th>
-              Gesamt
-            </th>
-
-          </tr>
-
-        </thead>
+                </tr>
 
 
-        <tbody>
+                <tr class="print-total">
 
+                    <td>Gesamtkosten</td>
 
-          <tr>
+                    <td id="printSummaryHeatingTotal">
+                        0,00 €
+                    </td>
 
-            <td id="printSummaryName0">
-              Person 1
-            </td>
+                    <td id="printSummaryWaterTotal">
+                        0,00 €
+                    </td>
 
-            <td id="printSummaryHeating0">
-              0,00 €
-            </td>
+                    <td id="printSummaryGrandTotal">
+                        0,00 €
+                    </td>
 
-            <td id="printSummaryWater0">
-              0,00 €
-            </td>
+                </tr>
 
-            <td id="printSummaryTotal0">
-              0,00 €
-            </td>
+            </tbody>
 
-          </tr>
-
-
-          <tr>
-
-            <td id="printSummaryName1">
-              Person 2
-            </td>
-
-            <td id="printSummaryHeating1">
-              0,00 €
-            </td>
-
-            <td id="printSummaryWater1">
-              0,00 €
-            </td>
-
-            <td id="printSummaryTotal1">
-              0,00 €
-            </td>
-
-          </tr>
-
-
-          <tr>
-
-            <td id="printSummaryName2">
-              Person 3
-            </td>
-
-            <td id="printSummaryHeating2">
-              0,00 €
-            </td>
-
-            <td id="printSummaryWater2">
-              0,00 €
-            </td>
-
-            <td id="printSummaryTotal2">
-              0,00 €
-            </td>
-
-          </tr>
-
-
-          <tr class="print-total">
-
-            <td>
-              Gesamtkosten
-            </td>
-
-            <td id="printSummaryHeatingTotal">
-              0,00 €
-            </td>
-
-            <td id="printSummaryWaterTotal">
-              0,00 €
-            </td>
-
-            <td id="printSummaryGrandTotal">
-              0,00 €
-            </td>
-
-          </tr>
-
-
-        </tbody>
-
-      </table>
+        </table>
 
     </div>
 
-
-
-    <!-- FOOTER -->
 
     <div class="print-footer">
 
-      <span>
-        Gastkostenabrechnung
-      </span>
+        <span>
+            Gastkostenabrechnung
+        </span>
 
-      <span>
-        Erstellt am
-        <span id="printCreatedDate"></span>
-      </span>
+        <span>
+            Erstellt am
+            <span id="printCreatedDate"></span>
+        </span>
 
     </div>
 
-  </div>
+</div>
 
 
 
-  <!-- =======================================================
-       JAVASCRIPT
-       ======================================================= -->
-
-  <script>
+<script>
 
 
-    /* =========================================================
-       STORAGE
-       ========================================================= */
+/* =========================================================
+   KONSTANTEN
+   ========================================================= */
 
-    const STORAGE_KEY =
-      "gastkostenabrechnung_v1";
+const STORAGE_KEY =
+    "gastkostenabrechnung_history_v2";
 
-    const THEME_KEY =
-      "gastkosten_theme";
+const THEME_KEY =
+    "gastkosten_theme";
 
 
-    /* =========================================================
-       HILFSFUNKTIONEN
-       ========================================================= */
+/* =========================================================
+   GLOBALE DATEN
+   ========================================================= */
 
-    function getNumber(id) {
+let appData = {
+    names: [
+        "Person 1",
+        "Person 2",
+        "Person 3"
+    ],
 
-      const value =
+    periods: [],
+
+    currentPeriod: 0
+};
+
+
+/* =========================================================
+   HILFSFUNKTIONEN
+   ========================================================= */
+
+function getNumber(id) {
+
+    const value =
         parseFloat(
-          document.getElementById(id).value
+            document.getElementById(id).value
         );
 
-      return Number.isFinite(value)
+    return Number.isFinite(value)
         ? value
         : 0;
-    }
+}
 
 
-    function euro(value) {
+function euro(value) {
 
-      return value.toLocaleString(
+    return value.toLocaleString(
         "de-DE",
         {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
         }
-      ) + " €";
-    }
+    ) + " €";
+}
 
 
-    function number(value) {
+function number(value) {
 
-      return value.toLocaleString(
+    return value.toLocaleString(
         "de-DE",
         {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
         }
-      );
-    }
+    );
+}
 
 
-    function setText(id, value) {
+function setText(id, value) {
 
-      const element =
+    const element =
         document.getElementById(id);
 
-      if (element) {
+    if (element) {
         element.textContent = value;
-      }
     }
+}
 
 
-    /* =========================================================
-       NAMEN
-       ========================================================= */
+/* =========================================================
+   NEUE LEERE ABRECHNUNG
+   ========================================================= */
 
-    function saveNames() {
+function createEmptyPeriod() {
 
-      for (let i = 0; i < 3; i++) {
+    return {
 
-        const input =
-          document.getElementById(
-            "person" + i
-          );
+        id:
+            Date.now() +
+            "_" +
+            Math.random()
+                .toString(36)
+                .substring(2, 9),
 
+        date: "",
 
-        if (!input.value.trim()) {
+        gasCost: 4000,
 
-          input.value =
-            "Person " + (i + 1);
+        heating: {
+
+            old: ["", "", ""],
+
+            new: ["", "", ""]
+
+        },
+
+        water: {
+
+            old: ["", "", ""],
+
+            new: ["", "", ""]
 
         }
 
-      }
+    };
+
+}
 
 
-      saveData();
+/* =========================================================
+   STANDARD-DATUM
+   ========================================================= */
 
-      updateNames();
+function todayISO() {
 
-      showSaveStatus();
+    const date =
+        new Date();
+
+    const year =
+        date.getFullYear();
+
+    const month =
+        String(
+            date.getMonth() + 1
+        ).padStart(2, "0");
+
+    const day =
+        String(
+            date.getDate()
+        ).padStart(2, "0");
+
+    return (
+        year +
+        "-" +
+        month +
+        "-" +
+        day
+    );
+
+}
+
+
+/* =========================================================
+   SORTIERUNG
+   ========================================================= */
+
+function sortPeriods() {
+
+    appData.periods.sort(
+        (a, b) => {
+
+            if (!a.date && !b.date) {
+                return 0;
+            }
+
+            if (!a.date) {
+                return 1;
+            }
+
+            if (!b.date) {
+                return -1;
+            }
+
+            return a.date.localeCompare(
+                b.date
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   LOCAL STORAGE SPEICHERN
+   ========================================================= */
+
+function saveToLocalStorage() {
+
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(appData)
+    );
+
+}
+
+
+/* =========================================================
+   AKTUELLE ABRECHNUNG SPEICHERN
+   ========================================================= */
+
+function saveCurrentPeriod() {
+
+    if (!appData.periods.length) {
+        return;
+    }
+
+    const period =
+        appData.periods[
+            appData.currentPeriod
+        ];
+
+
+    if (!period) {
+        return;
+    }
+
+
+    period.date =
+        document.getElementById(
+            "meterDate"
+        ).value;
+
+
+    period.gasCost =
+        document.getElementById(
+            "gasCost"
+        ).value;
+
+
+    for (let i = 0; i < 3; i++) {
+
+        period.heating.old[i] =
+            document.getElementById(
+                "heatingOld" + i
+            ).value;
+
+        period.heating.new[i] =
+            document.getElementById(
+                "heatingNew" + i
+            ).value;
+
+
+        period.water.old[i] =
+            document.getElementById(
+                "waterOld" + i
+            ).value;
+
+        period.water.new[i] =
+            document.getElementById(
+                "waterNew" + i
+            ).value;
 
     }
 
 
-    function updateNames() {
+    appData.names = [
 
-      for (let i = 0; i < 3; i++) {
+        document.getElementById(
+            "person0"
+        ).value,
+
+        document.getElementById(
+            "person1"
+        ).value,
+
+        document.getElementById(
+            "person2"
+        ).value
+
+    ];
+
+
+    saveToLocalStorage();
+
+    updateHistory();
+
+}
+
+
+/* =========================================================
+   AKTUELLE ABRECHNUNG LADEN
+   ========================================================= */
+
+function loadCurrentPeriod() {
+
+    const period =
+        appData.periods[
+            appData.currentPeriod
+        ];
+
+
+    if (!period) {
+        return;
+    }
+
+
+    document.getElementById(
+        "meterDate"
+    ).value =
+        period.date || "";
+
+
+    document.getElementById(
+        "gasCost"
+    ).value =
+        period.gasCost ?? 4000;
+
+
+    for (let i = 0; i < 3; i++) {
+
+        document.getElementById(
+            "heatingOld" + i
+        ).value =
+            period.heating.old[i] ?? "";
+
+
+        document.getElementById(
+            "heatingNew" + i
+        ).value =
+            period.heating.new[i] ?? "";
+
+
+        document.getElementById(
+            "waterOld" + i
+        ).value =
+            period.water.old[i] ?? "";
+
+
+        document.getElementById(
+            "waterNew" + i
+        ).value =
+            period.water.new[i] ?? "";
+
+    }
+
+
+    for (let i = 0; i < 3; i++) {
+
+        document.getElementById(
+            "person" + i
+        ).value =
+            appData.names[i] ||
+            "Person " + (i + 1);
+
+    }
+
+
+    updateNames();
+
+    calculate();
+
+    updatePeriodDisplay();
+
+    updateHistory();
+
+}
+
+
+/* =========================================================
+   NAMEN
+   ========================================================= */
+
+function saveNames() {
+
+    appData.names = [
+
+        document.getElementById(
+            "person0"
+        ).value.trim() ||
+        "Person 1",
+
+        document.getElementById(
+            "person1"
+        ).value.trim() ||
+        "Person 2",
+
+        document.getElementById(
+            "person2"
+        ).value.trim() ||
+        "Person 3"
+
+    ];
+
+
+    for (let i = 0; i < 3; i++) {
+
+        document.getElementById(
+            "person" + i
+        ).value =
+            appData.names[i];
+
+    }
+
+
+    saveCurrentPeriod();
+
+    updateNames();
+
+    calculate();
+
+    showStatus(
+        "Namen wurden gespeichert."
+    );
+
+}
+
+
+function updateNames() {
+
+    for (let i = 0; i < 3; i++) {
 
         const name =
-          document
-            .getElementById(
-              "person" + i
-            )
-            .value
-            .trim()
-          ||
-          "Person " + (i + 1);
+            document.getElementById(
+                "person" + i
+            ).value.trim() ||
+            "Person " + (i + 1);
 
 
         setText(
-          "heatingName" + i,
-          name
+            "heatingName" + i,
+            name
         );
 
         setText(
-          "waterName" + i,
-          name
+            "waterName" + i,
+            name
         );
 
         setText(
-          "hTableName" + i,
-          name
+            "hTableName" + i,
+            name
         );
 
         setText(
-          "wTableName" + i,
-          name
+            "wTableName" + i,
+            name
         );
 
         setText(
-          "totalName" + i,
-          name
+            "totalName" + i,
+            name
         );
 
         setText(
-          "summaryName" + i,
-          name
+            "summaryName" + i,
+            name
         );
-
-      }
 
     }
 
+}
 
-    /* =========================================================
-       STATUS
-       ========================================================= */
 
-    function showSaveStatus() {
+/* =========================================================
+   STATUS
+   ========================================================= */
 
-      const status =
+function showStatus(message) {
+
+    const status =
         document.getElementById(
-          "saveStatus"
+            "saveStatus"
         );
 
 
-      status.style.display =
+    status.textContent =
+        message;
+
+
+    status.style.display =
         "block";
 
 
-      setTimeout(() => {
+    setTimeout(
+        () => {
 
-        status.style.display =
-          "none";
+            status.style.display =
+                "none";
 
-      }, 2500);
+        },
+        2500
+    );
+
+}
+
+
+/* =========================================================
+   NEUE ABRECHNUNG
+   ========================================================= */
+
+function newPeriod() {
+
+    /*
+     * Zuerst aktuelle Eingaben sichern.
+     */
+
+    saveCurrentPeriod();
+
+
+    /*
+     * Aktuellen Zeitraum holen.
+     */
+
+    const previous =
+        appData.periods[
+            appData.currentPeriod
+        ];
+
+
+    const newPeriodData =
+        createEmptyPeriod();
+
+
+    /*
+     * Datum automatisch auf heute setzen.
+     */
+
+    newPeriodData.date =
+        todayISO();
+
+
+    /*
+     * Wenn bereits eine Abrechnung existiert:
+     *
+     * Neuer ALTER Zählerstand =
+     * letzter NEUER Zählerstand
+     */
+
+    if (previous) {
+
+        for (let i = 0; i < 3; i++) {
+
+            newPeriodData.heating.old[i] =
+                previous.heating.new[i];
+
+
+            newPeriodData.water.old[i] =
+                previous.water.new[i];
+
+        }
 
     }
 
 
-    /* =========================================================
-       BERECHNUNG
-       ========================================================= */
+    /*
+     * Neue Abrechnung hinzufügen.
+     */
 
-    function calculate() {
+    appData.periods.push(
+        newPeriodData
+    );
 
-      updateNames();
+
+    /*
+     * Chronologisch sortieren.
+     */
+
+    sortPeriods();
 
 
-      const gasCost =
+    /*
+     * Die neu angelegte Abrechnung suchen.
+     */
+
+    appData.currentPeriod =
+        appData.periods.findIndex(
+            period =>
+                period.id ===
+                newPeriodData.id
+        );
+
+
+    saveToLocalStorage();
+
+    loadCurrentPeriod();
+
+    showStatus(
+        "Neue Abrechnung wurde angelegt. Die letzten Zählerstände wurden automatisch übernommen."
+    );
+
+}
+
+
+/* =========================================================
+   VORHERIGE ABRECHNUNG
+   ========================================================= */
+
+function previousPeriod() {
+
+    saveCurrentPeriod();
+
+    sortPeriods();
+
+
+    if (
+        appData.currentPeriod <= 0
+    ) {
+
+        showStatus(
+            "Dies ist bereits die älteste Abrechnung."
+        );
+
+        return;
+
+    }
+
+
+    appData.currentPeriod--;
+
+    saveToLocalStorage();
+
+    loadCurrentPeriod();
+
+}
+
+
+/* =========================================================
+   NÄCHSTE ABRECHNUNG
+   ========================================================= */
+
+function nextPeriod() {
+
+    saveCurrentPeriod();
+
+    sortPeriods();
+
+
+    if (
+        appData.currentPeriod >=
+        appData.periods.length - 1
+    ) {
+
+        showStatus(
+            "Dies ist bereits die neueste Abrechnung."
+        );
+
+        return;
+
+    }
+
+
+    appData.currentPeriod++;
+
+    saveToLocalStorage();
+
+    loadCurrentPeriod();
+
+}
+
+
+/* =========================================================
+   ABRECHNUNG LÖSCHEN
+   ========================================================= */
+
+function deleteCurrentPeriod() {
+
+    if (
+        !appData.periods.length
+    ) {
+        return;
+    }
+
+
+    const period =
+        appData.periods[
+            appData.currentPeriod
+        ];
+
+
+    const answer =
+        confirm(
+            "Soll die Abrechnung" +
+            (period.date
+                ? " vom " + formatDate(period.date)
+                : "") +
+            " wirklich gelöscht werden?"
+        );
+
+
+    if (!answer) {
+        return;
+    }
+
+
+    appData.periods.splice(
+        appData.currentPeriod,
+        1
+    );
+
+
+    if (
+        appData.currentPeriod >=
+        appData.periods.length
+    ) {
+
+        appData.currentPeriod =
+            Math.max(
+                0,
+                appData.periods.length - 1
+            );
+
+    }
+
+
+    /*
+     * Falls keine Abrechnung mehr existiert,
+     * eine neue leere anlegen.
+     */
+
+    if (
+        appData.periods.length === 0
+    ) {
+
+        appData.periods.push(
+            createEmptyPeriod()
+        );
+
+        appData.currentPeriod = 0;
+
+    }
+
+
+    saveToLocalStorage();
+
+    loadCurrentPeriod();
+
+    showStatus(
+        "Abrechnung wurde gelöscht."
+    );
+
+}
+
+
+/* =========================================================
+   DATUM GEÄNDERT
+   ========================================================= */
+
+function dateChanged() {
+
+    saveCurrentPeriod();
+
+    sortPeriods();
+
+
+    const currentId =
+        appData.periods[
+            appData.currentPeriod
+        ].id;
+
+
+    appData.currentPeriod =
+        appData.periods.findIndex(
+            period =>
+                period.id ===
+                currentId
+        );
+
+
+    saveToLocalStorage();
+
+    updatePeriodDisplay();
+
+    updateHistory();
+
+}
+
+
+/* =========================================================
+   ZEITPUNKT ANZEIGE
+   ========================================================= */
+
+function updatePeriodDisplay() {
+
+    const total =
+        appData.periods.length;
+
+
+    const current =
+        appData.currentPeriod + 1;
+
+
+    setText(
+        "periodTitle",
+        "Abrechnung " +
+        current +
+        " von " +
+        total
+    );
+
+
+    const period =
+        appData.periods[
+            appData.currentPeriod
+        ];
+
+
+    setText(
+        "periodDateDisplay",
+        period && period.date
+            ? formatDate(period.date)
+            : "Noch kein Datum"
+    );
+
+}
+
+
+/* =========================================================
+   HISTORIE
+   ========================================================= */
+
+function updateHistory() {
+
+    const container =
+        document.getElementById(
+            "historyList"
+        );
+
+
+    container.innerHTML = "";
+
+
+    appData.periods.forEach(
+        (period, index) => {
+
+            const item =
+                document.createElement(
+                    "div"
+                );
+
+
+            item.className =
+                "history-item" +
+                (
+                    index ===
+                    appData.currentPeriod
+                        ? " active"
+                        : ""
+                );
+
+
+            const left =
+                document.createElement(
+                    "div"
+                );
+
+
+            const title =
+                document.createElement(
+                    "div"
+                );
+
+
+            title.className =
+                "history-item-title";
+
+
+            title.textContent =
+                "Abrechnung " +
+                (index + 1);
+
+
+            const date =
+                document.createElement(
+                    "div"
+                );
+
+
+            date.className =
+                "history-item-date";
+
+
+            date.textContent =
+                period.date
+                    ? formatDate(period.date)
+                    : "Kein Datum";
+
+
+            left.appendChild(title);
+            left.appendChild(date);
+
+
+            const right =
+                document.createElement(
+                    "div"
+                );
+
+
+            const gas =
+                document.createElement(
+                    "strong"
+                );
+
+
+            gas.textContent =
+                euro(
+                    parseFloat(
+                        period.gasCost
+                    ) || 0
+                );
+
+
+            right.appendChild(gas);
+
+
+            item.appendChild(left);
+            item.appendChild(right);
+
+
+            item.onclick =
+                () => {
+
+                    saveCurrentPeriod();
+
+                    appData.currentPeriod =
+                        index;
+
+                    saveToLocalStorage();
+
+                    loadCurrentPeriod();
+
+                };
+
+
+            container.appendChild(item);
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   DATUM FORMATIEREN
+   ========================================================= */
+
+function formatDate(dateString) {
+
+    if (!dateString) {
+        return "";
+    }
+
+
+    const parts =
+        dateString.split("-");
+
+
+    if (
+        parts.length !== 3
+    ) {
+        return dateString;
+    }
+
+
+    return (
+        parts[2] +
+        "." +
+        parts[1] +
+        "." +
+        parts[0]
+    );
+
+}
+
+
+/* =========================================================
+   BERECHNUNG
+   ========================================================= */
+
+function calculate() {
+
+    updateNames();
+
+
+    const gasCost =
         getNumber("gasCost");
 
 
-      const heatingBudget =
+    const heatingBudget =
         gasCost * 0.60;
 
 
-      const waterBudget =
+    const waterBudget =
         gasCost * 0.40;
 
 
-      let heatingDiff =
+    let heatingDiff =
         [0, 0, 0];
 
 
-      let waterDiff =
+    let waterDiff =
         [0, 0, 0];
 
 
-      let heatingTotal = 0;
+    let heatingTotal = 0;
 
-      let waterTotal = 0;
+    let waterTotal = 0;
 
 
-      /* -------------------------------------------------------
-         ZÄHLERSTÄNDE
-         ------------------------------------------------------- */
+    /*
+     * Zählerstände
+     */
 
-      for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 3; i++) {
 
         const hOld =
-          getNumber(
-            "heatingOld" + i
-          );
+            getNumber(
+                "heatingOld" + i
+            );
 
 
         const hNew =
-          getNumber(
-            "heatingNew" + i
-          );
+            getNumber(
+                "heatingNew" + i
+            );
 
 
         const wOld =
-          getNumber(
-            "waterOld" + i
-          );
+            getNumber(
+                "waterOld" + i
+            );
 
 
         const wNew =
-          getNumber(
-            "waterNew" + i
-          );
+            getNumber(
+                "waterNew" + i
+            );
 
 
         const hd =
-          Math.max(
-            0,
-            hNew - hOld
-          );
+            Math.max(
+                0,
+                hNew - hOld
+            );
 
 
         const wd =
-          Math.max(
-            0,
-            wNew - wOld
-          );
+            Math.max(
+                0,
+                wNew - wOld
+            );
 
 
         heatingDiff[i] = hd;
@@ -2629,1040 +2982,890 @@
 
 
         setText(
-          "hOld" + i,
-          number(hOld)
+            "hOld" + i,
+            number(hOld)
         );
 
         setText(
-          "hNew" + i,
-          number(hNew)
+            "hNew" + i,
+            number(hNew)
         );
 
         setText(
-          "hDiff" + i,
-          number(hd)
+            "hDiff" + i,
+            number(hd)
         );
 
 
         setText(
-          "wOld" + i,
-          number(wOld)
+            "wOld" + i,
+            number(wOld)
         );
 
         setText(
-          "wNew" + i,
-          number(wNew)
+            "wNew" + i,
+            number(wNew)
         );
 
         setText(
-          "wDiff" + i,
-          number(wd)
+            "wDiff" + i,
+            number(wd)
         );
 
-      }
+    }
 
 
-      /* -------------------------------------------------------
-         KOSTEN
-         ------------------------------------------------------- */
+    /*
+     * Kosten
+     */
 
-      let heatingCosts =
+    let heatingCosts =
         [0, 0, 0];
 
 
-      let waterCosts =
+    let waterCosts =
         [0, 0, 0];
 
 
-      for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 3; i++) {
 
         const heatingShare =
-          heatingTotal > 0
-            ? heatingDiff[i] /
-              heatingTotal
-            : 0;
+            heatingTotal > 0
+                ? heatingDiff[i] /
+                  heatingTotal
+                : 0;
 
 
         const waterShare =
-          waterTotal > 0
-            ? waterDiff[i] /
-              waterTotal
-            : 0;
+            waterTotal > 0
+                ? waterDiff[i] /
+                  waterTotal
+                : 0;
 
 
         heatingCosts[i] =
-          heatingBudget *
-          heatingShare;
+            heatingBudget *
+            heatingShare;
 
 
         waterCosts[i] =
-          waterBudget *
-          waterShare;
+            waterBudget *
+            waterShare;
 
 
         setText(
-          "hPercent" + i,
+            "hPercent" + i,
 
-          (
-            heatingShare * 100
-          ).toLocaleString(
-            "de-DE",
-            {
-              minimumFractionDigits: 1,
-              maximumFractionDigits: 2
-            }
-          ) + " %"
+            (
+                heatingShare * 100
+            ).toLocaleString(
+                "de-DE",
+                {
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 2
+                }
+            ) + " %"
         );
 
 
         setText(
-          "wPercent" + i,
+            "wPercent" + i,
 
-          (
-            waterShare * 100
-          ).toLocaleString(
-            "de-DE",
-            {
-              minimumFractionDigits: 1,
-              maximumFractionDigits: 2
-            }
-          ) + " %"
+            (
+                waterShare * 100
+            ).toLocaleString(
+                "de-DE",
+                {
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 2
+                }
+            ) + " %"
         );
 
 
         setText(
-          "hCost" + i,
-          euro(
-            heatingCosts[i]
-          )
+            "hCost" + i,
+            euro(
+                heatingCosts[i]
+            )
         );
 
 
         setText(
-          "wCost" + i,
-          euro(
-            waterCosts[i]
-          )
+            "wCost" + i,
+            euro(
+                waterCosts[i]
+            )
         );
 
-      }
+    }
 
 
-      /* -------------------------------------------------------
-         GESAMTKOSTEN
-         ------------------------------------------------------- */
+    /*
+     * Gesamtkosten
+     */
 
-      let grandTotal = 0;
+    let grandTotal = 0;
 
 
-      for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 3; i++) {
 
         const total =
-          heatingCosts[i] +
-          waterCosts[i];
+            heatingCosts[i] +
+            waterCosts[i];
 
 
         grandTotal += total;
 
 
         setText(
-          "totalCost" + i,
-          euro(total)
+            "totalCost" + i,
+            euro(total)
         );
 
 
         setText(
-          "summaryHeating" + i,
-          euro(
-            heatingCosts[i]
-          )
+            "summaryHeating" + i,
+            euro(
+                heatingCosts[i]
+            )
         );
 
 
         setText(
-          "summaryWater" + i,
-          euro(
-            waterCosts[i]
-          )
+            "summaryWater" + i,
+            euro(
+                waterCosts[i]
+            )
         );
 
 
         setText(
-          "summaryTotal" + i,
-          euro(total)
+            "summaryTotal" + i,
+            euro(total)
         );
 
-      }
+    }
 
 
-      setText(
+    setText(
         "summaryHeatingTotal",
         euro(heatingBudget)
-      );
-
-
-      setText(
-        "summaryWaterTotal",
-        euro(waterBudget)
-      );
-
-
-      setText(
-        "summaryGrandTotal",
-        euro(grandTotal)
-      );
-
-
-      saveData();
-
-    }
-
-
-    /* =========================================================
-       DATEN SPEICHERN
-       ========================================================= */
-
-    function saveData() {
-
-      const data = {
-
-
-        names: [
-
-          document.getElementById(
-            "person0"
-          ).value,
-
-          document.getElementById(
-            "person1"
-          ).value,
-
-          document.getElementById(
-            "person2"
-          ).value
-
-        ],
-
-
-        gasCost:
-          document.getElementById(
-            "gasCost"
-          ).value,
-
-
-        meterDate:
-          document.getElementById(
-            "meterDate"
-          ).value,
-
-
-        heating: {
-
-          old: [
-
-            document.getElementById(
-              "heatingOld0"
-            ).value,
-
-            document.getElementById(
-              "heatingOld1"
-            ).value,
-
-            document.getElementById(
-              "heatingOld2"
-            ).value
-
-          ],
-
-
-          new: [
-
-            document.getElementById(
-              "heatingNew0"
-            ).value,
-
-            document.getElementById(
-              "heatingNew1"
-            ).value,
-
-            document.getElementById(
-              "heatingNew2"
-            ).value
-
-          ]
-
-        },
-
-
-        water: {
-
-          old: [
-
-            document.getElementById(
-              "waterOld0"
-            ).value,
-
-            document.getElementById(
-              "waterOld1"
-            ).value,
-
-            document.getElementById(
-              "waterOld2"
-            ).value
-
-          ],
-
-
-          new: [
-
-            document.getElementById(
-              "waterNew0"
-            ).value,
-
-            document.getElementById(
-              "waterNew1"
-            ).value,
-
-            document.getElementById(
-              "waterNew2"
-            ).value
-
-          ]
-
-        }
-
-      };
-
-
-      localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(data)
-      );
-
-    }
-
-
-    /* =========================================================
-       DATEN LADEN
-       ========================================================= */
-
-    function loadData() {
-
-      const saved =
-        localStorage.getItem(
-          STORAGE_KEY
-        );
-
-
-      if (!saved) {
-
-        updateNames();
-
-        calculate();
-
-        return;
-
-      }
-
-
-      try {
-
-        const data =
-          JSON.parse(saved);
-
-
-        /* NAMEN */
-
-        if (data.names) {
-
-          for (let i = 0; i < 3; i++) {
-
-            document.getElementById(
-              "person" + i
-            ).value =
-              data.names[i] || "";
-
-          }
-
-        }
-
-
-        /* GASKOSTEN */
-
-        if (
-          data.gasCost !==
-          undefined
-        ) {
-
-          document.getElementById(
-            "gasCost"
-          ).value =
-            data.gasCost;
-
-        }
-
-
-        /* DATUM */
-
-        if (
-          data.meterDate !==
-          undefined
-        ) {
-
-          document.getElementById(
-            "meterDate"
-          ).value =
-            data.meterDate;
-
-        }
-
-
-        /* HEIZUNG */
-
-        if (data.heating) {
-
-          for (let i = 0; i < 3; i++) {
-
-            document.getElementById(
-              "heatingOld" + i
-            ).value =
-              data.heating.old[i]
-              || "";
-
-
-            document.getElementById(
-              "heatingNew" + i
-            ).value =
-              data.heating.new[i]
-              || "";
-
-          }
-
-        }
-
-
-        /* WARMWASSER */
-
-        if (data.water) {
-
-          for (let i = 0; i < 3; i++) {
-
-            document.getElementById(
-              "waterOld" + i
-            ).value =
-              data.water.old[i]
-              || "";
-
-
-            document.getElementById(
-              "waterNew" + i
-            ).value =
-              data.water.new[i]
-              || "";
-
-          }
-
-        }
-
-
-        updateNames();
-
-        calculate();
-
-
-      } catch (error) {
-
-        console.error(
-          "Fehler beim Laden:",
-          error
-        );
-
-
-        alert(
-          "Die gespeicherten Daten konnten nicht gelesen werden."
-        );
-
-      }
-
-    }
-
-
-    /* =========================================================
-       ALLES LÖSCHEN
-       ========================================================= */
-
-    function resetAll() {
-
-      const confirmReset =
-        confirm(
-          "Soll wirklich die komplette gespeicherte Abrechnung gelöscht werden?"
-        );
-
-
-      if (!confirmReset) {
-        return;
-      }
-
-
-      localStorage.removeItem(
-        STORAGE_KEY
-      );
-
-
-      document
-        .querySelectorAll("input")
-        .forEach(input => {
-
-          if (
-            input.id === "gasCost"
-          ) {
-
-            input.value =
-              "4000";
-
-          } else {
-
-            input.value =
-              "";
-
-          }
-
-        });
-
-
-      updateNames();
-
-      calculate();
-
-    }
-
-
-    /* =========================================================
-       DARK / LIGHT MODE
-       ========================================================= */
-
-    function applyTheme(theme) {
-
-      const body =
-        document.body;
-
-
-      const button =
-        document.getElementById(
-          "themeToggle"
-        );
-
-
-      if (theme === "dark") {
-
-        body.classList.add(
-          "dark-mode"
-        );
-
-
-        button.textContent =
-          "☀️ Light Mode";
-
-
-      } else {
-
-        body.classList.remove(
-          "dark-mode"
-        );
-
-
-        button.textContent =
-          "🌙 Dark Mode";
-
-      }
-
-
-      localStorage.setItem(
-        THEME_KEY,
-        theme
-      );
-
-    }
-
-
-    function toggleTheme() {
-
-      const currentTheme =
-        localStorage.getItem(
-          THEME_KEY
-        ) || "light";
-
-
-      const newTheme =
-        currentTheme === "dark"
-          ? "light"
-          : "dark";
-
-
-      applyTheme(
-        newTheme
-      );
-
-    }
-
-
-    /* =========================================================
-       DRUCKZUSAMMENFASSUNG AKTUALISIEREN
-       ========================================================= */
-
-    function updatePrintSummary() {
-
-      const gasCost =
-        getNumber("gasCost");
-
-
-      const heatingBudget =
-        gasCost * 0.60;
-
-
-      const waterBudget =
-        gasCost * 0.40;
-
-
-      /* -------------------------------------------------------
-         BASISDATEN
-         ------------------------------------------------------- */
-
-      const meterDate =
-        document.getElementById(
-          "meterDate"
-        ).value.trim();
-
-
-      setText(
-        "printMeterDate",
-        meterDate || "-"
-      );
-
-
-      setText(
-        "printGasCost",
-        euro(gasCost)
-      );
-
-
-      /* -------------------------------------------------------
-         NAMEN
-         ------------------------------------------------------- */
-
-      for (let i = 0; i < 3; i++) {
-
-        const name =
-          document
-            .getElementById(
-              "person" + i
-            )
-            .value
-            .trim()
-          ||
-          "Person " + (i + 1);
-
-
-        setText(
-          "printPerson" + i,
-          name
-        );
-
-
-        setText(
-          "printHName" + i,
-          name
-        );
-
-
-        setText(
-          "printWName" + i,
-          name
-        );
-
-
-        setText(
-          "printTotalName" + i,
-          name
-        );
-
-
-        setText(
-          "printSummaryName" + i,
-          name
-        );
-
-      }
-
-
-      /* -------------------------------------------------------
-         ZÄHLERSTÄNDE
-         ------------------------------------------------------- */
-
-      let heatingTotalConsumption = 0;
-
-      let waterTotalConsumption = 0;
-
-
-      for (let i = 0; i < 3; i++) {
-
-        const hOld =
-          getNumber(
-            "heatingOld" + i
-          );
-
-
-        const hNew =
-          getNumber(
-            "heatingNew" + i
-          );
-
-
-        const wOld =
-          getNumber(
-            "waterOld" + i
-          );
-
-
-        const wNew =
-          getNumber(
-            "waterNew" + i
-          );
-
-
-        const hDiff =
-          Math.max(
-            0,
-            hNew - hOld
-          );
-
-
-        const wDiff =
-          Math.max(
-            0,
-            wNew - wOld
-          );
-
-
-        heatingTotalConsumption +=
-          hDiff;
-
-
-        waterTotalConsumption +=
-          wDiff;
-
-
-        setText(
-          "printHOld" + i,
-          number(hOld)
-        );
-
-
-        setText(
-          "printHNew" + i,
-          number(hNew)
-        );
-
-
-        setText(
-          "printHDiff" + i,
-          number(hDiff)
-        );
-
-
-        setText(
-          "printWOld" + i,
-          number(wOld)
-        );
-
-
-        setText(
-          "printWNew" + i,
-          number(wNew)
-        );
-
-
-        setText(
-          "printWDiff" + i,
-          number(wDiff)
-        );
-
-      }
-
-
-      setText(
-        "printHeatingTotalConsumption",
-        number(
-          heatingTotalConsumption
-        )
-      );
-
-
-      setText(
-        "printWaterTotalConsumption",
-        number(
-          waterTotalConsumption
-        )
-      );
-
-
-      /* -------------------------------------------------------
-         KOSTEN UND PROZENTE
-         ------------------------------------------------------- */
-
-      let grandTotal = 0;
-
-
-      for (let i = 0; i < 3; i++) {
-
-        const hDiff =
-          Math.max(
-            0,
-            getNumber(
-              "heatingNew" + i
-            ) -
-            getNumber(
-              "heatingOld" + i
-            )
-          );
-
-
-        const wDiff =
-          Math.max(
-            0,
-            getNumber(
-              "waterNew" + i
-            ) -
-            getNumber(
-              "waterOld" + i
-            )
-          );
-
-
-        const hShare =
-          heatingTotalConsumption > 0
-            ? hDiff /
-              heatingTotalConsumption
-            : 0;
-
-
-        const wShare =
-          waterTotalConsumption > 0
-            ? wDiff /
-              waterTotalConsumption
-            : 0;
-
-
-        const hCost =
-          heatingBudget *
-          hShare;
-
-
-        const wCost =
-          waterBudget *
-          wShare;
-
-
-        const total =
-          hCost + wCost;
-
-
-        grandTotal += total;
-
-
-        const hPercent =
-          (
-            hShare * 100
-          ).toLocaleString(
-            "de-DE",
-            {
-              minimumFractionDigits: 1,
-              maximumFractionDigits: 2
-            }
-          ) + " %";
-
-
-        const wPercent =
-          (
-            wShare * 100
-          ).toLocaleString(
-            "de-DE",
-            {
-              minimumFractionDigits: 1,
-              maximumFractionDigits: 2
-            }
-          ) + " %";
-
-
-        setText(
-          "printHPercent" + i,
-          hPercent
-        );
-
-
-        setText(
-          "printWPercent" + i,
-          wPercent
-        );
-
-
-        setText(
-          "printHCost" + i,
-          euro(hCost)
-        );
-
-
-        setText(
-          "printWCost" + i,
-          euro(wCost)
-        );
-
-
-        setText(
-          "printTotalCost" + i,
-          euro(total)
-        );
-
-
-        setText(
-          "printSummaryHeating" + i,
-          euro(hCost)
-        );
-
-
-        setText(
-          "printSummaryWater" + i,
-          euro(wCost)
-        );
-
-
-        setText(
-          "printSummaryTotal" + i,
-          euro(total)
-        );
-
-      }
-
-
-      /* -------------------------------------------------------
-         SUMMEN
-         ------------------------------------------------------- */
-
-      setText(
-        "printHeatingTotal",
-        euro(heatingBudget)
-      );
-
-
-      setText(
-        "printWaterTotal",
-        euro(waterBudget)
-      );
-
-
-      setText(
-        "printSummaryHeatingTotal",
-        euro(heatingBudget)
-      );
-
-
-      setText(
-        "printSummaryWaterTotal",
-        euro(waterBudget)
-      );
-
-
-      setText(
-        "printSummaryGrandTotal",
-        euro(grandTotal)
-      );
-
-
-      /* -------------------------------------------------------
-         ERSTELLUNGSDATUM
-         ------------------------------------------------------- */
-
-      const now =
-        new Date();
-
-
-      const created =
-        now.toLocaleDateString(
-          "de-DE"
-        );
-
-
-      setText(
-        "printCreatedDate",
-        created
-      );
-
-    }
-
-
-    /* =========================================================
-       DRUCKEN
-       
-       Kein Popup.
-       Kein neues Fenster.
-       Nur die normale Browser-Druckfunktion.
-       ========================================================= */
-
-    function printSummary() {
-
-      /*
-       * Vor dem Drucken die aktuellen Daten berechnen.
-       */
-
-      calculate();
-
-
-      /*
-       * Druckansicht mit den aktuellen Daten füllen.
-       */
-
-      updatePrintSummary();
-
-
-      /*
-       * Normale Browser-Druckfunktion.
-       *
-       * Es wird kein eigenes Fenster geöffnet.
-       * Der Browser entscheidet selbst, ob die
-       * Druckvorschau angezeigt wird.
-       */
-
-      window.print();
-
-    }
-
-
-    /* =========================================================
-       START
-       ========================================================= */
-
-    window.addEventListener(
-      "DOMContentLoaded",
-      () => {
-
-        const savedTheme =
-          localStorage.getItem(
-            THEME_KEY
-          ) || "light";
-
-
-        applyTheme(
-          savedTheme
-        );
-
-
-        loadData();
-
-      }
     );
 
 
-  </script>
+    setText(
+        "summaryWaterTotal",
+        euro(waterBudget)
+    );
+
+
+    setText(
+        "summaryGrandTotal",
+        euro(grandTotal)
+    );
+
+}
+
+
+/* =========================================================
+   JSON EXPORT
+   ========================================================= */
+
+function saveJSON() {
+
+    /*
+     * Aktuelle Eingaben zuerst speichern.
+     */
+
+    saveCurrentPeriod();
+
+
+    /*
+     * Kopie erzeugen.
+     */
+
+    const exportData = {
+
+        app: "Gastkostenabrechnung",
+
+        version: 2,
+
+        exportedAt:
+            new Date()
+                .toISOString(),
+
+        names:
+            appData.names,
+
+        periods:
+            appData.periods
+
+    };
+
+
+    const json =
+        JSON.stringify(
+            exportData,
+            null,
+            2
+        );
+
+
+    /*
+     * Datei erzeugen.
+     */
+
+    const blob =
+        new Blob(
+            [json],
+            {
+                type:
+                    "application/json"
+            }
+        );
+
+
+    const url =
+        URL.createObjectURL(
+            blob
+        );
+
+
+    const link =
+        document.createElement(
+            "a"
+        );
+
+
+    const date =
+        new Date()
+            .toISOString()
+            .slice(0, 10);
+
+
+    link.href = url;
+
+    link.download =
+        "Gastkostenabrechnung_" +
+        date +
+        ".json";
+
+
+    document.body.appendChild(
+        link
+    );
+
+
+    link.click();
+
+
+    document.body.removeChild(
+        link
+    );
+
+
+    URL.revokeObjectURL(
+        url
+    );
+
+
+    showStatus(
+        "Alle Abrechnungen wurden als JSON-Datei gespeichert."
+    );
+
+}
+
+
+/* =========================================================
+   DRUCK
+   ========================================================= */
+
+function updatePrintSummary() {
+
+    const gasCost =
+        getNumber("gasCost");
+
+
+    const heatingBudget =
+        gasCost * 0.60;
+
+
+    const waterBudget =
+        gasCost * 0.40;
+
+
+    const period =
+        appData.periods[
+            appData.currentPeriod
+        ];
+
+
+    setText(
+        "printMeterDate",
+        period && period.date
+            ? formatDate(period.date)
+            : "-"
+    );
+
+
+    setText(
+        "printGasCost",
+        euro(gasCost)
+    );
+
+
+    setText(
+        "printPeriod",
+        "Abrechnung " +
+        (
+            appData.currentPeriod + 1
+        ) +
+        " von " +
+        appData.periods.length
+    );
+
+
+    /*
+     * Namen
+     */
+
+    for (let i = 0; i < 3; i++) {
+
+        const name =
+            document
+                .getElementById(
+                    "person" + i
+                )
+                .value.trim() ||
+            "Person " + (i + 1);
+
+
+        setText(
+            "printPerson" + i,
+            name
+        );
+
+
+        setText(
+            "printHName" + i,
+            name
+        );
+
+
+        setText(
+            "printWName" + i,
+            name
+        );
+
+
+        setText(
+            "printTotalName" + i,
+            name
+        );
+
+
+        setText(
+            "printSummaryName" + i,
+            name
+        );
+
+    }
+
+
+    /*
+     * Verbrauch
+     */
+
+    let heatingTotal = 0;
+
+    let waterTotal = 0;
+
+
+    for (let i = 0; i < 3; i++) {
+
+        const hOld =
+            getNumber(
+                "heatingOld" + i
+            );
+
+
+        const hNew =
+            getNumber(
+                "heatingNew" + i
+            );
+
+
+        const wOld =
+            getNumber(
+                "waterOld" + i
+            );
+
+
+        const wNew =
+            getNumber(
+                "waterNew" + i
+            );
+
+
+        const hDiff =
+            Math.max(
+                0,
+                hNew - hOld
+            );
+
+
+        const wDiff =
+            Math.max(
+                0,
+                wNew - wOld
+            );
+
+
+        heatingTotal += hDiff;
+
+        waterTotal += wDiff;
+
+
+        setText(
+            "printHOld" + i,
+            number(hOld)
+        );
+
+
+        setText(
+            "printHNew" + i,
+            number(hNew)
+        );
+
+
+        setText(
+            "printHDiff" + i,
+            number(hDiff)
+        );
+
+
+        setText(
+            "printWOld" + i,
+            number(wOld)
+        );
+
+
+        setText(
+            "printWNew" + i,
+            number(wNew)
+        );
+
+
+        setText(
+            "printWDiff" + i,
+            number(wDiff)
+        );
+
+    }
+
+
+    /*
+     * Kosten
+     */
+
+    let grandTotal = 0;
+
+
+    for (let i = 0; i < 3; i++) {
+
+        const hOld =
+            getNumber(
+                "heatingOld" + i
+            );
+
+
+        const hNew =
+            getNumber(
+                "heatingNew" + i
+            );
+
+
+        const wOld =
+            getNumber(
+                "waterOld" + i
+            );
+
+
+        const wNew =
+            getNumber(
+                "waterNew" + i
+            );
+
+
+        const hDiff =
+            Math.max(
+                0,
+                hNew - hOld
+            );
+
+
+        const wDiff =
+            Math.max(
+                0,
+                wNew - wOld
+            );
+
+
+        const hShare =
+            heatingTotal > 0
+                ? hDiff / heatingTotal
+                : 0;
+
+
+        const wShare =
+            waterTotal > 0
+                ? wDiff / waterTotal
+                : 0;
+
+
+        const hCost =
+            heatingBudget *
+            hShare;
+
+
+        const wCost =
+            waterBudget *
+            wShare;
+
+
+        const total =
+            hCost + wCost;
+
+
+        grandTotal += total;
+
+
+        setText(
+            "printHPercent" + i,
+
+            (
+                hShare * 100
+            ).toLocaleString(
+                "de-DE",
+                {
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 2
+                }
+            ) + " %"
+        );
+
+
+        setText(
+            "printWPercent" + i,
+
+            (
+                wShare * 100
+            ).toLocaleString(
+                "de-DE",
+                {
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 2
+                }
+            ) + " %"
+        );
+
+
+        setText(
+            "printHCost" + i,
+            euro(hCost)
+        );
+
+
+        setText(
+            "printWCost" + i,
+            euro(wCost)
+        );
+
+
+        setText(
+            "printTotalCost" + i,
+            euro(total)
+        );
+
+
+        setText(
+            "printSummaryHeating" + i,
+            euro(hCost)
+        );
+
+
+        setText(
+            "printSummaryWater" + i,
+            euro(wCost)
+        );
+
+
+        setText(
+            "printSummaryTotal" + i,
+            euro(total)
+        );
+
+    }
+
+
+    setText(
+        "printHeatingTotalConsumption",
+        number(heatingTotal)
+    );
+
+
+    setText(
+        "printWaterTotalConsumption",
+        number(waterTotal)
+    );
+
+
+    setText(
+        "printHeatingTotal",
+        euro(heatingBudget)
+    );
+
+
+    setText(
+        "printWaterTotal",
+        euro(waterBudget)
+    );
+
+
+    setText(
+        "printSummaryHeatingTotal",
+        euro(heatingBudget)
+    );
+
+
+    setText(
+        "printSummaryWaterTotal",
+        euro(waterBudget)
+    );
+
+
+    setText(
+        "printSummaryGrandTotal",
+        euro(grandTotal)
+    );
+
+
+    setText(
+        "printCreatedDate",
+        new Date().toLocaleDateString(
+            "de-DE"
+        )
+    );
+
+}
+
+
+function printSummary() {
+
+    saveCurrentPeriod();
+
+    calculate();
+
+    updatePrintSummary();
+
+    window.print();
+
+}
+
+
+/* =========================================================
+   DARK MODE
+   ========================================================= */
+
+function applyTheme(theme) {
+
+    const body =
+        document.body;
+
+
+    const button =
+        document.getElementById(
+            "themeToggle"
+        );
+
+
+    if (theme === "dark") {
+
+        body.classList.add(
+            "dark-mode"
+        );
+
+        button.textContent =
+            "☀️ Light Mode";
+
+    } else {
+
+        body.classList.remove(
+            "dark-mode"
+        );
+
+        button.textContent =
+            "🌙 Dark Mode";
+
+    }
+
+
+    localStorage.setItem(
+        THEME_KEY,
+        theme
+    );
+
+}
+
+
+function toggleTheme() {
+
+    const current =
+        localStorage.getItem(
+            THEME_KEY
+        ) || "light";
+
+
+    applyTheme(
+        current === "dark"
+            ? "light"
+            : "dark"
+    );
+
+}
+
+
+/* =========================================================
+   INITIALISIERUNG
+   ========================================================= */
+
+function initialize() {
+
+    /*
+     * Theme laden
+     */
+
+    applyTheme(
+        localStorage.getItem(
+            THEME_KEY
+        ) || "light"
+    );
+
+
+    /*
+     * Gespeicherte Daten laden
+     */
+
+    const saved =
+        localStorage.getItem(
+            STORAGE_KEY
+        );
+
+
+    if (saved) {
+
+        try {
+
+            const parsed =
+                JSON.parse(saved);
+
+
+            if (
+                parsed &&
+                Array.isArray(
+                    parsed.periods
+                )
+            ) {
+
+                appData =
+                    parsed;
+
+            }
+
+        } catch (error) {
+
+            console.error(
+                "Fehler beim Laden:",
+                error
+            );
+
+        }
+
+    }
+
+
+    /*
+     * Falls noch keine Abrechnung existiert
+     */
+
+    if (
+        !appData.periods ||
+        appData.periods.length === 0
+    ) {
+
+        appData.periods = [
+            createEmptyPeriod()
+        ];
+
+        appData.currentPeriod = 0;
+
+    }
+
+
+    if (
+        !appData.names ||
+        appData.names.length !== 3
+    ) {
+
+        appData.names = [
+            "Person 1",
+            "Person 2",
+            "Person 3"
+        ];
+
+    }
+
+
+    /*
+     * Sortieren
+     */
+
+    sortPeriods();
+
+
+    /*
+     * Aktuellen Index absichern
+     */
+
+    if (
+        appData.currentPeriod < 0 ||
+        appData.currentPeriod >=
+        appData.periods.length
+    ) {
+
+        appData.currentPeriod = 0;
+
+    }
+
+
+    /*
+     * Daten laden
+     */
+
+    loadCurrentPeriod();
+
+    saveToLocalStorage();
+
+}
+
+
+window.addEventListener(
+    "DOMContentLoaded",
+    initialize
+);
+
+</script>
 
 </body>
 </html>
